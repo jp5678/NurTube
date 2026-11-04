@@ -71,12 +71,13 @@ NT.RESOURCES = [
     { name: "AMIA — Nursing Informatics", url: "https://amia.org/", note: "미국의료정보학회" },
     { name: "NursingAI 역량 프레임워크 (TCNP)", url: "https://projects.tib.eu/nursingai/competency-framework/", note: "간호 실무 기술 활용 역량, TIGER 기반" },
   ] },
-  { group: "표준·용어", items: [
-    { name: "HL7 FHIR", url: "https://hl7.org/fhir/", note: "보건의료 데이터 교환 표준" },
-    { name: "SNOMED International", url: "https://www.snomed.org/", note: "임상용어 표준" },
-    { name: "LOINC", url: "https://loinc.org/", note: "검사·관찰 항목 코드" },
-    { name: "SNOMED CT 브라우저", url: "https://browser.ihtsdotools.org/", note: "개념 직접 검색 실습" },
-    { name: "OHDSI (OMOP CDM)", url: "https://www.ohdsi.org/", note: "공통데이터모델·다기관 연구" },
+  { group: "데이터 교환·분류 표준", items: [
+    { name: "HL7 FHIR", url: "https://hl7.org/fhir/", note: "전송 표준 · 병원·앱 사이 의료 데이터 교환 (5주차)" },
+    { name: "IHE", url: "https://www.ihe.net/", note: "연동 표준 · 여러 표준을 실제 업무 흐름에 맞게 묶은 통합 프로파일" },
+    { name: "DICOM", url: "https://www.dicomstandard.org/", note: "전송 표준 · 의료영상 저장·전송" },
+    { name: "ICD-11 (WHO)", url: "https://icd.who.int/", note: "분류 표준 · 질병 통계·청구 분류 (국내는 KCD 사용)" },
+    { name: "OHDSI (OMOP CDM)", url: "https://www.ohdsi.org/", note: "데이터 모델 · 공통데이터모델·다기관 연구 (6주차)" },
+    { name: "SNOMED CT 브라우저", url: "https://browser.ihtsdotools.org/", note: "실습 도구 · 간호 개념 코드를 직접 검색" },
   ] },
   { group: "국내 기관·법령", items: [
     { name: "한국보건의료정보원", url: "https://www.k-his.or.kr/", note: "진료정보교류·보건의료 표준" },
