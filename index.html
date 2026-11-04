@@ -7,11 +7,12 @@
   <meta name="description" content="간호대학생을 위한 [AI융합 간호정보학] 영상 큐레이션. 국내외 시청자 반응 분석 순위, 추천 이유, 토론 질문, 15주 로드맵, 최신 동향." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23e03131'/><path d='M40 22h20v18h18v20H60v18H40V60H22V40h18z' fill='white'/></svg>" />
   <link rel="preload" href="fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/style.css?v=202611041218" />
+  <link rel="stylesheet" href="css/style.css?v=202611041226" />
 </head>
 <body>
   <header class="topbar">
-    <button class="icon-btn" data-act="menu" aria-label="메뉴">☰</button>
+    <button class="icon-btn menu-btn" data-act="menu" aria-label="메뉴 접기·펴기" aria-expanded="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
     <a class="logo" href="#/" aria-label="NurTube 홈"><span class="logo-nur">Nur</span><span class="logo-tube">Tube</span></a>
     <form id="search" class="search" role="search">
       <input id="q" type="search" placeholder="검색: LLM, 환각, FHIR, 간호기록, 조기경보…" autocomplete="off" aria-label="영상 검색" />
@@ -22,44 +23,44 @@
   </header>
 
   <nav class="nav" aria-label="주 메뉴">
-    <a href="#/"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>홈</span></a>
-    <a href="#/roadmap"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>15주 로드맵</span></a>
-    <a href="#/topics"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>주제별</span></a>
-    <a href="#/playlists"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h13M3 12h13M3 18h8"/><path d="m16 15 5 3-5 3z"/></svg><span>재생목록</span></a>
+    <a href="#/" title="홈"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>홈</span></a>
+    <a href="#/roadmap" title="15주 로드맵"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>15주 로드맵</span></a>
+    <a href="#/topics" title="주제별"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>주제별</span></a>
+    <a href="#/playlists" title="재생목록"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h13M3 12h13M3 18h8"/><path d="m16 15 5 3-5 3z"/></svg><span>재생목록</span></a>
     <hr />
-    <a href="#/trends"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h13v16H6a2 2 0 0 1-2-2z"/><path d="M17 8h3v10a2 2 0 0 1-2 2"/><path d="M8 8h5M8 12h5M8 16h3"/></svg><span>최신 동향</span></a>
-    <a href="#/resources"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span>학습 자원</span></a>
+    <a href="#/trends" title="최신 동향"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h13v16H6a2 2 0 0 1-2-2z"/><path d="M17 8h3v10a2 2 0 0 1-2 2"/><path d="M8 8h5M8 12h5M8 16h3"/></svg><span>최신 동향</span></a>
+    <a href="#/resources" title="학습 자원"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span>학습 자원</span></a>
     <hr />
-    <a href="#/liked"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg><span>좋아요</span></a>
-    <a href="#/later"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>나중에 보기</span></a>
-    <a href="#/history"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg><span>시청 기록</span></a>
-    <a href="#/notes"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span>학습노트</span></a>
-    <a href="#/edit" id="nav-edit" hidden><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a2.8 2.8 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg><span>영상 관리</span></a>
+    <a href="#/liked" title="좋아요"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg><span>좋아요</span></a>
+    <a href="#/later" title="나중에 보기"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>나중에 보기</span></a>
+    <a href="#/history" title="시청 기록"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg><span>시청 기록</span></a>
+    <a href="#/notes" title="학습노트"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span>학습노트</span></a>
+    <a href="#/edit" id="nav-edit" hidden title="영상 관리"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a2.8 2.8 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg><span>영상 관리</span></a>
     <hr />
-    <a href="#/settings"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>설정</span></a>
-    <a href="#/about"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>소개</span></a>
+    <a href="#/settings" title="설정"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>설정</span></a>
+    <a href="#/about" title="소개"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>소개</span></a>
   </nav>
   <div class="scrim" data-act="menu"></div>
 
   <main id="main" tabindex="-1"></main>
 
-  <script src="js/data/taxonomy.js?v=202611041218"></script>
-  <script src="js/data/videos.js?v=202611041218"></script>
-  <script src="js/data/trends.js?v=202611041218"></script>
-  <script src="js/data/quizzes.js?v=202611041218"></script>
-  <script src="js/data/overrides.js?v=202611041218"></script>
-  <script src="js/data/candidates.js?v=202611041218"></script>
-  <script src="js/data/prof.js?v=202611041218"></script>
-  <script src="js/store.js?v=202611041218"></script>
-  <script src="js/prof-auth.js?v=202611041218"></script>
-  <script src="js/overlay.js?v=202611041218"></script>
-  <script src="js/catalog.js?v=202611041218"></script>
-  <script src="js/views.js?v=202611041218"></script>
-  <script src="js/views-quiz.js?v=202611041218"></script>
-  <script src="js/views-pages.js?v=202611041218"></script>
-  <script src="js/views-editor.js?v=202611041218"></script>
-  <script src="js/player.js?v=202611041218"></script>
-  <script src="js/docx-export.js?v=202611041218"></script>
-  <script src="js/app.js?v=202611041218"></script>
+  <script src="js/data/taxonomy.js?v=202611041226"></script>
+  <script src="js/data/videos.js?v=202611041226"></script>
+  <script src="js/data/trends.js?v=202611041226"></script>
+  <script src="js/data/quizzes.js?v=202611041226"></script>
+  <script src="js/data/overrides.js?v=202611041226"></script>
+  <script src="js/data/candidates.js?v=202611041226"></script>
+  <script src="js/data/prof.js?v=202611041226"></script>
+  <script src="js/store.js?v=202611041226"></script>
+  <script src="js/prof-auth.js?v=202611041226"></script>
+  <script src="js/overlay.js?v=202611041226"></script>
+  <script src="js/catalog.js?v=202611041226"></script>
+  <script src="js/views.js?v=202611041226"></script>
+  <script src="js/views-quiz.js?v=202611041226"></script>
+  <script src="js/views-pages.js?v=202611041226"></script>
+  <script src="js/views-editor.js?v=202611041226"></script>
+  <script src="js/player.js?v=202611041226"></script>
+  <script src="js/docx-export.js?v=202611041226"></script>
+  <script src="js/app.js?v=202611041226"></script>
 </body>
 </html>

@@ -141,12 +141,25 @@
     "clear-history": () => { if (confirm("시청 기록을 모두 삭제할까요?")) { store.clearHistory(); render(); } },
     help: () => { closeModal(); document.body.insertAdjacentHTML("beforeend", P.help()); },
     "close-modal": () => closeModal(),
-    menu: () => document.body.classList.toggle("nav-open"),
+    menu: () => {
+      if (isNarrow()) { document.body.classList.toggle("nav-open"); return; } // 휴대폰·태블릿: 밀려 나오는 메뉴
+      store.setSetting("navCollapsed", !store.get().settings.navCollapsed);
+      applyNav();
+    },
   };
 
   Object.assign(ACTIONS, NT.editor.actions({ render, download }));
 
   const closeModal = () => document.querySelector(".modal")?.remove();
+
+  const NARROW_PX = 860;
+  const isNarrow = () => window.innerWidth <= NARROW_PX;
+  // 넓은 화면: 왼쪽 메뉴를 아이콘만 있는 좁은 띠로 접거나 편다(설정에 기억)
+  const applyNav = () => {
+    const collapsed = Boolean(store.get().settings.navCollapsed);
+    document.body.classList.toggle("nav-collapsed", collapsed);
+    document.querySelector(".menu-btn")?.setAttribute("aria-expanded", String(!collapsed));
+  };
 
   const openProfLogin = () => {
     closeModal();
@@ -298,5 +311,6 @@
 
   window.addEventListener("hashchange", render);
   applyTheme();
+  applyNav();
   render();
 })();

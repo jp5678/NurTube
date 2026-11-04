@@ -396,3 +396,16 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 /* 히어로 설명: 문장마다 줄을 나누고, 굵은 핵심어는 줄 중간에서 끊지 않는다 */
 .hero p .line { display: block; }
 .hero p b, .hero h1 em { white-space: nowrap; }
+
+/* ── 메뉴 버튼 · 왼쪽 메뉴 접기 */
+.menu-btn { width: 44px; height: 44px; }
+.menu-btn svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+@media (min-width: 861px) {
+  body.nav-collapsed { --nav-w: 76px; }
+  body.nav-collapsed .nav { padding: 12px 10px; overflow-x: hidden; }
+  body.nav-collapsed .nav a { justify-content: center; padding: 10px 0; }
+  body.nav-collapsed .nav a span { display: none; }
+  body.nav-collapsed .nav .ico { width: 24px; height: 24px; }
+  body.nav-collapsed .nav hr { margin: 8px 6px; }
+  body.nav-collapsed .nav a.active { box-shadow: none; }
+}
