@@ -84,6 +84,13 @@ NT.RESOURCES = [
     { name: "식품의약품안전처 의료기기 가이드라인", url: "https://www.mfds.go.kr/", note: "AI·LLM 디지털의료기기 허가·심사" },
     { name: "국가법령정보센터", url: "https://www.law.go.kr/", note: "의료법·간호법·개인정보보호법 원문" },
     { name: "대한간호협회", url: "https://www.koreanurse.or.kr/", note: "간호 정책·보도자료" },
+    { name: "디지털의료제품법", url: "https://www.law.go.kr/법령/%EB%94%94%EC%A7%80%ED%84%B8%EC%9D%98%EB%A3%8C%EC%A0%9C%ED%92%88%EB%B2%95", note: "2025.1 시행 · 디지털의료기기·AI 의료기기·디지털치료제의 허가·심사·사후관리" },
+    { name: "인공지능 발전과 신뢰 기반 조성 등에 관한 기본법", url: "https://www.law.go.kr/법령/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5%20%EB%B0%9C%EC%A0%84%EA%B3%BC%20%EC%8B%A0%EB%A2%B0%20%EA%B8%B0%EB%B0%98%20%EC%A1%B0%EC%84%B1%20%EB%93%B1%EC%97%90%20%EA%B4%80%ED%95%9C%20%EA%B8%B0%EB%B3%B8%EB%B2%95", note: "AI 기본법 · 2026.1 시행 · '고영향 AI'(보건의료 포함)의 투명성·안전 의무" },
+    { name: "개인정보 보호법", url: "https://www.law.go.kr/법령/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%20%EB%B3%B4%ED%98%B8%EB%B2%95", note: "건강정보는 '민감정보' · 가명정보 처리와 연구 활용의 근거" },
+    { name: "의료법", url: "https://www.law.go.kr/법령/%EC%9D%98%EB%A3%8C%EB%B2%95", note: "진료기록·전자의무기록 보관·열람(제21·23조 등), 비대면 진료의 근거" },
+    { name: "간호법", url: "https://www.law.go.kr/법령/%EA%B0%84%ED%98%B8%EB%B2%95", note: "2025.6 시행 · 간호사의 업무 범위와 책임" },
+    { name: "의료기기법", url: "https://www.law.go.kr/법령/%EC%9D%98%EB%A3%8C%EA%B8%B0%EA%B8%B0%EB%B2%95", note: "소프트웨어 의료기기 등 기존 의료기기 허가 체계" },
+    { name: "생명윤리 및 안전에 관한 법률", url: "https://www.law.go.kr/법령/%EC%83%9D%EB%AA%85%EC%9C%A4%EB%A6%AC%20%EB%B0%8F%20%EC%95%88%EC%A0%84%EC%97%90%20%EA%B4%80%ED%95%9C%20%EB%B2%95%EB%A5%A0", note: "인간대상연구·기관생명윤리위원회(IRB), 의료 데이터 연구 동의" },
   ] },
   { group: "표준 간호용어 · ANA 인정 12종", items: [
     { name: "ANA 인정 표준용어 입장문", url: "https://www.nursingworld.org/practice-policy/nursing-excellence/official-position-statements/id/inclusion-of-recognized-terminologies-supporting-nursing-practice-within-electronic-health-records/", note: "EHR에 인정 표준용어를 쓰도록 권고 · 12종 목록의 근거" },

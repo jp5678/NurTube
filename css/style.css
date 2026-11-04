@@ -459,3 +459,38 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 .nnn-flow span { font-size: 14px; }
 .wk-chips { display: flex; gap: 6px; flex-wrap: wrap; }
 .term-table th { white-space: nowrap; }
+
+/* ── 사용 설명서 */
+.manual { max-width: 900px; }
+.man-part { margin-top: 28px; }
+.man-h2 { font-size: 22px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); margin: 0 0 14px; }
+.manual h3 { font-size: 17px; margin: 26px 0 8px; scroll-margin-top: calc(var(--top-h) + 12px); }
+.manual ul, .manual ol { padding-left: 22px; margin: 0; }
+.manual li { margin: 6px 0; line-height: 1.75; }
+.man-part { scroll-margin-top: calc(var(--top-h) + 12px); }
+.man-toc { padding: 14px 18px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line); }
+.man-toc ol { columns: 2; column-gap: 24px; }
+.man-toc a { color: var(--accent); font-weight: 600; }
+.man-table { border-collapse: collapse; width: 100%; font-size: 14px; background: var(--surface); }
+.man-table td, .man-table th { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.man-table th { background: var(--surface-2); }
+.man-faq dt { font-weight: 700; margin-top: 12px; }
+.man-faq dd { margin: 4px 0 0; color: var(--muted); line-height: 1.7; }
+.ok-text { color: var(--ok); font-weight: 700; }
+.ng-text { color: var(--ng); font-weight: 700; }
+@media (max-width: 560px) { .man-toc ol { columns: 1; } }
+
+/* ── 인쇄 · PDF 저장: 메뉴·버튼을 숨기고 흰 바탕 문서로 */
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f3f3f3; --text: #111; --muted: #444; --line: #ccc; --shadow: none; }
+  body::before, body::after, .topbar, .nav, .scrim, .no-print, .modal { display: none !important; }
+  body { background: #fff; font-size: 11pt; }
+  main { margin: 0 !important; padding: 0 !important; max-width: none; }
+  .manual { max-width: none; }
+  .man-part#part-prof { break-before: page; }
+  .manual h3 { break-after: avoid; }
+  .manual li, .man-table tr, .man-faq dd { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  .badge-inline { border: 1px solid #999; }
+}

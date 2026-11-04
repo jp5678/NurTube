@@ -52,6 +52,7 @@
     edit: (s, { arg }) => NT.editor.page(arg, s),
     settings: (s) => P.settings(s),
     about: () => P.about(),
+    manual: () => NT.manualView.page(),
   };
 
   const render = () => {
@@ -129,6 +130,7 @@
       }
     },
     stamp: () => insertStamp(),
+    "print-manual": () => window.print(),
     "ko-subs": () => {
       if (!NT.player.koreanNow()) alert("영상을 재생한 뒤 다시 눌러 주세요. 그래도 안 되면 플레이어의 ⚙ 설정 → 자막 → 자동 번역 → 한국어를 선택하세요.");
     },
@@ -229,6 +231,12 @@
   const today = () => new Date().toISOString().slice(0, 10);
 
   document.addEventListener("click", (e) => {
+    const jump = e.target.closest("[data-jump]");
+    if (jump) { // 설명서 목차: 해시 라우터와 겹치지 않게 같은 페이지 안에서 이동
+      e.preventDefault();
+      document.getElementById(jump.dataset.jump)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     const seekEl = e.target.closest("[data-seek]");
     if (seekEl && parseHash().name === "watch" && NT.player.seek(Number(seekEl.dataset.seek))) {
       e.preventDefault();

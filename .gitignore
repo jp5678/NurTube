@@ -8,3 +8,6 @@ tools/__pycache__/
 docs/.bkit-memory.json
 docs/.pdca-status.json
 .DS_Store
+
+# 사용 설명서 PDF(사이트에서 언제든 다시 만들 수 있음)
+NurTube_사용설명서.pdf

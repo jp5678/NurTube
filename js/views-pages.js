@@ -235,11 +235,22 @@ NT.pages = (() => {
   const about = () => `
     <article class="about">
       <h1>NurTube</h1>
-      <p class="lead">간호학과 학생이 '다음에 클릭할 영상'이 아니라 '다음 학기에도 기억할 영상'을 만나도록.</p>
-      <div class="stats"><div><b>${NT.VIDEOS.length}</b>큐레이션 영상</div><div><b>${NT.TOPICS.length}</b>주제</div>
-        <div><b>${NT.ROADMAP.length}</b>주 로드맵</div><div><b>${NT.TRENDS.length}</b>최신 동향</div></div>
+      <p class="lead">간호대학생을 위한 [AI융합 간호정보학] 영상 큐레이션 사이트</p>
+      <p>NurTube는 간호정보학의 기초부터 의료 AI·생성형 AI, AI 간호 실무, 윤리·규제, 디지털 헬스케어까지
+        <b>한 학기 수업 흐름에 맞춰 고른 국내외 YouTube 영상</b>을 한곳에 모은 학습 사이트입니다.
+        영상은 수업 목표로 후보를 고른 뒤 <b>시청자 댓글·좋아요 분석</b>으로 우선순위를 정했고,
+        영상마다 요약·추천 이유·토론 질문과 답변 가이드가 붙어 있어 혼자서도 깊이 있게 공부할 수 있습니다.</p>
+      <div class="stats"><div><b>${NT.VIDEOS.length}</b>큐레이션 영상</div><div><b>${NT.ROADMAP.length}</b>주 로드맵</div>
+        <div><b>${Object.values(NT.QUIZZES || {}).reduce((n, q) => n + q.length, 0)}</b>확인 퀴즈 문항</div><div><b>${(NT.TERMINOLOGIES || []).length}</b>표준 간호용어</div></div>
+      <h2>무엇을 할 수 있나</h2>
+      <ul><li><b>15주 로드맵</b>을 따라 영상을 보고 주차별 <b>확인 퀴즈</b>로 이해도를 점검합니다.</li>
+        <li>영어 영상도 <b>한국어 자막</b>으로 보고, <b>시간이 표시되는 학습노트</b>를 남깁니다.</li>
+        <li>노트·퀴즈 결과를 <b>Word 파일로 내보내 LMS에 제출</b>합니다.</li>
+        <li><b>표준 간호용어 12종</b>, 국내외 문헌 검색·참고문헌 도구, 관련 법령, 2026 최신 동향을 함께 봅니다.</li></ul>
+      <p><a class="btn primary" href="#/manual">📘 사용 설명서 보기</a></p>
       <h2>왜 만들었나</h2>
-      <p>NurTube는 <b>AI융합 간호정보학 수업 목표</b>로 후보를 고르고, <b>국내외 시청자 반응</b>으로 우선순위를 정했습니다.</p>
+      <p>추천 알고리즘은 '다음에 클릭할 영상'을 보여 주지만, 수업에 필요한 것은 '다음 학기에도 기억할 영상'입니다.
+        NurTube는 <b>AI융합 간호정보학 수업 목표</b>로 후보를 고르고, <b>국내외 시청자 반응</b>으로 우선순위를 정했습니다.</p>
       <h2>어떻게 골랐나</h2>
       <ol><li><b>후보 수집</b> — 수업 주제(간호정보학·표준·AI 원리·LLM·AI 간호 실무·윤리·규제)별로 한국어·영어 YouTube를 검색해 약 220편을 모았습니다.</li>
         <li><b>반응 수집</b> — 영상마다 좋아요·조회수·댓글 수와 상위 댓글 최대 20개를 수집했습니다(2026.11.4 기준).</li>
