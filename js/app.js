@@ -58,7 +58,7 @@
   const render = () => {
     const route = parseHash();
     const view = ROUTES[route.name] || notFound;
-    document.title = "NurTube - 간호학생 AI·정보학 영상 큐레이션";
+    document.title = "NurTube - 간호대학생 AI융합 간호정보학 영상 큐레이션";
     try {
       main.innerHTML = view(store.get(), route);
     } catch (err) {
