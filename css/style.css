@@ -78,7 +78,7 @@ main { margin: var(--top-h) 0 0 var(--nav-w); padding: 28px 32px 72px; max-width
 .hero > * { position: relative; z-index: 1; }
 .hero h1 { margin: 0 0 10px; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.35; letter-spacing: -.6px; font-weight: 800; }
 .hero h1 em { font-style: normal; color: var(--accent); }
-.hero p { margin: 0 0 20px; color: var(--muted); max-width: 760px; }
+.hero p { margin: 0; color: var(--muted); max-width: 760px; }
 .hero-links { display: flex; gap: 10px; flex-wrap: wrap; }
 .shelf { margin-top: 32px; }
 .shelf h2, .area h2 { font-size: 18px; margin: 0 0 14px; letter-spacing: -.3px; }
@@ -92,9 +92,18 @@ main { margin: var(--top-h) 0 0 var(--nav-w); padding: 28px 32px 72px; max-width
 .btn.primary:hover { background: var(--accent-strong); }
 .btn.on { background: var(--tint); border-color: var(--accent); color: var(--accent); }
 .filters { display: flex; gap: 10px; flex-wrap: wrap; }
-.filter { display: flex; align-items: center; gap: 6px; padding: 4px 6px 4px 16px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; }
-.filter span { color: var(--muted); }
-.filter select, .setting select { border: 0; background: var(--surface-2); border-radius: 999px; padding: 5px 10px; cursor: pointer; }
+.filter { display: flex; align-items: center; gap: 8px; padding: 5px 5px 5px 16px; border-radius: 999px; background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--text) 16%, var(--line)); font-size: 14px; }
+.filter span { color: var(--text); font-weight: 700; }
+.filter select { border: 1px solid transparent; background: var(--surface-2); color: var(--text); font-weight: 600;
+  border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.filter select:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.filter select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* 기본값이 아닌 필터는 강조해서 지금 무엇이 걸려 있는지 보이게 */
+.filter.on { border-color: var(--accent); background: var(--tint); }
+.filter.on span { color: var(--accent); }
+.filter.on select { background: var(--surface); color: var(--accent); }
+.setting select { border: 0; background: var(--surface-2); border-radius: 999px; padding: 5px 10px; cursor: pointer; }
 
 /* ── 카드 그리드 */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 26px 18px; }
