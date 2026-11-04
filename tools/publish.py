@@ -114,7 +114,8 @@ def setup(repo_name: str = DEFAULT_REPO) -> None:
     owner = out("gh", "api", "user", "-q", ".login")
     print(f"GitHub 저장소 {owner}/{repo_name} 를 공개(public)로 만들고 업로드합니다…")
     run("gh", "repo", "create", repo_name, "--public", "--source", ".", "--remote", "origin", "--push",
-        "--description", "간호대학생을 위한 [AI융합 간호정보학] 영상 큐레이션")
+        "--description", "NurTube - 간호대학생 AI융합 간호정보학 영상 큐레이션",
+        "--homepage", f"https://{owner.lower()}.github.io/{repo_name}/")
     print("GitHub Pages를 켭니다…")
     run("gh", "api", "-X", "POST", f"repos/{owner}/{repo_name}/pages",
         "-f", f"source[branch]={BRANCH}", "-f", "source[path]=/", check=False, capture=True)
