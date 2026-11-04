@@ -1,0 +1,10 @@
+# NurTube — 배포 제외
+tools/raw.json
+tools/digest.txt
+tools/applied/
+tools/inbox/
+tools/__pycache__/
+.claude/
+docs/.bkit-memory.json
+docs/.pdca-status.json
+.DS_Store

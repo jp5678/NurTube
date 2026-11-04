@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NurTube - 간호학생 AI·정보학 영상 큐레이션</title>
+  <meta name="description" content="간호학과 학생을 위한 AI융합 간호정보학 영상 큐레이션. 국내외 시청자 반응 분석 순위, 추천 이유, 토론 질문, 15주 로드맵, 최신 동향." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23e03131'/><path d='M40 22h20v18h18v20H60v18H40V60H22V40h18z' fill='white'/></svg>" />
+  <link rel="preload" href="fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn" data-act="menu" aria-label="메뉴">☰</button>
+    <a class="logo" href="#/" aria-label="NurTube 홈"><span class="logo-nur">Nur</span><span class="logo-tube">Tube</span></a>
+    <form id="search" class="search" role="search">
+      <input id="q" type="search" placeholder="검색: LLM, 환각, FHIR, 간호기록, 조기경보…" autocomplete="off" aria-label="영상 검색" />
+      <button type="submit" aria-label="검색">⌕</button>
+    </form>
+    <button class="icon-btn" data-act="help" aria-label="단축키 도움말">?</button>
+    <a class="icon-btn" href="#/about" aria-label="소개">ⓘ</a>
+  </header>
+
+  <nav class="nav" aria-label="주 메뉴">
+    <a href="#/"><i>⌂</i>홈</a>
+    <a href="#/roadmap"><i>🗓</i>15주 로드맵</a>
+    <a href="#/topics"><i>▦</i>주제별</a>
+    <a href="#/playlists"><i>▤</i>재생목록</a>
+    <hr />
+    <a href="#/trends"><i>📰</i>최신 동향</a>
+    <a href="#/resources"><i>🔗</i>학습 자원</a>
+    <hr />
+    <a href="#/liked"><i>♥</i>좋아요</a>
+    <a href="#/later"><i>⏱</i>나중에 보기</a>
+    <a href="#/history"><i>↺</i>시청 기록</a>
+    <a href="#/notes"><i>📝</i>학습노트</a>
+    <a href="#/edit" id="nav-edit" hidden><i>✏️</i>영상 관리</a>
+    <hr />
+    <a href="#/settings"><i>⚙</i>설정</a>
+    <a href="#/about"><i>ⓘ</i>소개</a>
+  </nav>
+  <div class="scrim" data-act="menu"></div>
+
+  <main id="main" tabindex="-1"></main>
+
+  <script src="js/data/taxonomy.js"></script>
+  <script src="js/data/videos.js"></script>
+  <script src="js/data/trends.js"></script>
+  <script src="js/data/quizzes.js"></script>
+  <script src="js/data/overrides.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/overlay.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/views-quiz.js"></script>
+  <script src="js/views-pages.js"></script>
+  <script src="js/views-editor.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/docx-export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
