@@ -114,8 +114,8 @@
     "export-docx": async () => {
       const s = store.get();
       if (!s.student.name.trim() || !s.student.id.trim()) {
-        alert("LMS 제출용 파일에는 이름과 학번이 필요합니다. 위의 '제출자 정보'를 먼저 입력해 주세요.");
-        document.querySelector('[data-student="name"]')?.focus();
+        alert("LMS 제출용 파일에는 학번과 이름이 필요합니다. 위의 분반·학번·이름을 먼저 입력해 주세요.");
+        document.querySelector(s.student.id.trim() ? '[data-student="name"]' : '[data-student="id"]')?.focus();
         return;
       }
       try {

@@ -159,9 +159,9 @@ NT.pages = (() => {
     <section class="lms">
       <h2>📤 LMS 과제 제출</h2>
       <div class="student-form">
-        <label>이름<input data-student="name" value="${esc(st.name)}" placeholder="홍길동" maxlength="40" /></label>
-        <label>학번<input data-student="id" value="${esc(st.id)}" placeholder="20261234" maxlength="40" inputmode="numeric" /></label>
         <label>분반<input data-student="section" value="${esc(st.section)}" placeholder="예: 3학년 A반" maxlength="40" /></label>
+        <label>학번<input data-student="id" value="${esc(st.id)}" placeholder="20261234" maxlength="40" inputmode="numeric" /></label>
+        <label>이름<input data-student="name" value="${esc(st.name)}" placeholder="홍길동" maxlength="40" /></label>
       </div>
       <ol class="lms-steps">
         <li>영상 페이지에서 학습노트를 적고 주차별 퀴즈를 풉니다.</li>

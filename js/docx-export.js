@@ -31,9 +31,9 @@ NT.docx = (() => {
 
   const submitter = (student, exportedAt) => [
     text("제출자 정보", "Heading2"),
-    para(run("이름: ", { bold: true }) + run(student.name || "(미입력)")),
-    para(run("학번: ", { bold: true }) + run(student.id || "(미입력)")),
     para(run("분반: ", { bold: true }) + run(student.section || "-")),
+    para(run("학번: ", { bold: true }) + run(student.id || "(미입력)")),
+    para(run("이름: ", { bold: true }) + run(student.name || "(미입력)")),
     para(run("제출 파일 생성: ", { bold: true }) + run(exportedAt)),
   ].join("");
 
