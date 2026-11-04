@@ -40,9 +40,6 @@ body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.65 "Pr
 h1, h2, h3, .title, .w-title, legend { text-wrap: balance; }
 p, li, dd, .sub { text-wrap: pretty; }
 /* 배경 장식 도형 (스크린샷의 파스텔 원형) */
-body::before, body::after { content: ""; position: fixed; z-index: -1; pointer-events: none; border-radius: 42% 58% 55% 45%; }
-body::before { width: 340px; height: 340px; left: -140px; bottom: -120px; background: var(--blob-butter); }
-body::after { width: 300px; height: 260px; right: -110px; top: 40px; background: var(--blob-lav); }
 a { color: inherit; text-decoration: none; }
 button, select, input, textarea { font: inherit; color: inherit; }
 kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 0 6px; font-size: 12px; background: var(--surface-2); }
@@ -81,8 +78,6 @@ main { margin: var(--top-h) 0 0 var(--nav-w); padding: 28px 32px 72px; max-width
 /* ── 홈 */
 .hero { position: relative; overflow: hidden; padding: 34px 36px; margin-bottom: 24px; border-radius: 28px;
   background: linear-gradient(115deg, var(--hero-a) 0%, var(--hero-b) 100%); }
-.hero::before { content: ""; position: absolute; right: -40px; bottom: -60px; width: 220px; height: 160px; border-radius: 48% 52% 0 0; background: var(--hero-c); opacity: .9; }
-.hero::after { content: ""; position: absolute; right: 18%; top: -50px; width: 120px; height: 120px; border-radius: 50%; background: var(--blob-peach); opacity: .7; }
 .hero > * { position: relative; z-index: 1; }
 .hero h1 { margin: 0 0 10px; font-size: clamp(21px, 2.6vw, 30px); line-height: 1.35; letter-spacing: -.6px; font-weight: 800; }
 .hero h1 em { font-style: normal; color: var(--accent); }
@@ -291,7 +286,6 @@ main.watch-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; 
   .stats { grid-template-columns: repeat(2, 1fr); }
   .related .card { grid-template-columns: 140px 1fr; }
   .hero { padding: 24px 20px; border-radius: 22px; }
-  body::after { width: 180px; height: 160px; right: -90px; }
 }
 
 /* ── 한국어 시청 배지 · 교수 검수 */
@@ -484,7 +478,7 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 @media print {
   @page { size: A4; margin: 16mm 14mm; }
   :root { --bg: #fff; --surface: #fff; --surface-2: #f3f3f3; --text: #111; --muted: #444; --line: #ccc; --shadow: none; }
-  body::before, body::after, .topbar, .nav, .scrim, .no-print, .modal { display: none !important; }
+  .topbar, .nav, .scrim, .no-print, .modal { display: none !important; }
   body { background: #fff; font-size: 11pt; }
   main { margin: 0 !important; padding: 0 !important; max-width: none; }
   .manual { max-width: none; }
@@ -501,3 +495,27 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 .site-footer p { margin: 0; }
 @media (max-width: 860px) { .site-footer { margin-left: 0; padding: 16px 16px 24px; } }
 @media print { .site-footer { margin: 12mm 0 0 !important; padding: 8px 0 0; } }
+/* 홈 헤더 그림: AI 신경망 · 간호 노드 · 심전도 */
+.hero { container-type: inline-size; --art-w: min(30%, 320px); }
+.hero > .hero-art { position: absolute; z-index: 0; right: 32px; top: 50%; transform: translateY(-50%); width: var(--art-w); height: auto; pointer-events: none; }
+.hero-art .edge { stroke: var(--accent); stroke-opacity: .16; stroke-width: 1.2; }
+.hero-art .flow { stroke: var(--accent); stroke-opacity: .75; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 2 16; animation: ha-flow 1.8s linear infinite; animation-delay: var(--d); }
+.hero-art .node { fill: var(--surface); stroke: var(--accent); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: ha-pulse 2.6s ease-in-out infinite; animation-delay: var(--d); }
+.hero-art .out { fill: var(--surface); stroke: var(--brand-red); stroke-width: 2.4; }
+.hero-art .cross { fill: var(--brand-red); }
+.hero-art .ring { fill: none; stroke: var(--brand-red); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: ha-ring 2.6s ease-out infinite; }
+.hero-art .ecg, .hero-art .ecg-bg { fill: none; stroke: var(--brand-red); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.hero-art .ecg-bg { stroke-opacity: .14; }
+.hero-art .ecg { stroke-dasharray: 100; animation: ha-ecg 3.2s linear infinite; }
+@keyframes ha-flow { to { stroke-dashoffset: -18; } }
+@keyframes ha-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.28); fill: color-mix(in srgb, var(--accent) 22%, var(--surface)); } }
+@keyframes ha-ring { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.7); opacity: 0; } }
+@keyframes ha-ecg { from { stroke-dashoffset: 100; } to { stroke-dashoffset: -100; } }
+@container (max-width: 880px) { .hero > .hero-art { display: none; } }
+@container (min-width: 881px) { .hero > h1, .hero > p { max-width: calc(100% - var(--art-w) - 28px); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-art * { animation: none !important; }
+  .hero-art .ecg { stroke-dashoffset: 0; }
+  .hero-art .ring { opacity: 0; }
+}
+@media print { .hero-art { display: none; } }

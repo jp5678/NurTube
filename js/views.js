@@ -63,6 +63,7 @@ NT.views = (() => {
     const opts = { frames: state.settings.frames };
     return `
       <section class="hero">
+        ${NT.heroArt || ""}
         <h1>간호대학생을 위한 <em>[AI융합 간호정보학]</em> 영상 큐레이션</h1>
         <p><span class="line">수업 목표에 맞춰 고른 국내외 영상 ${NT.VIDEOS.length}편을 <b>시청자 댓글·좋아요 분석</b>으로 순위를 매겼습니다.</span>
           <span class="line">영상마다 <b>추천 이유</b>, <b>시청자 반응 요약</b>, <b>토론 질문</b>이 있습니다.</span></p>

@@ -126,7 +126,7 @@ NT.pages = (() => {
   const trends = () => `
     <header class="page-head"><h1>2026 국내외 최신 동향</h1>
       <p>간호 AI·간호정보학 분야의 최근 소식과 수업 연결 포인트. 2026년 11월 기준 조사이며, 2차 보도는 원문 확인을 권장합니다.</p></header>
-    <div class="trends">${NT.TRENDS.map((t) => `
+    <div class="trends">${[...NT.TRENDS].sort((a, b) => b.date.localeCompare(a.date)).map((t) => `
       <article class="trend">
         <div class="t-top"><span class="tag ${t.region === "국내" ? "kr" : "global"}">${t.region}</span>
           <time>${esc(t.date)}</time> <span class="src">${esc(t.source)}</span>${t.secondary ? '<span class="tag warn">2차 보도</span>' : ""}</div>
