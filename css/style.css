@@ -393,3 +393,6 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 .prof-label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
 .prof-label input { height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font-size: 15px; }
 .prof-msg { min-height: 1.4em; margin: 8px 0; }
+/* 히어로 설명: 문장마다 줄을 나누고, 굵은 핵심어는 줄 중간에서 끊지 않는다 */
+.hero p .line { display: block; }
+.hero p b, .hero h1 em { white-space: nowrap; }
