@@ -106,7 +106,7 @@ NT.editor = (() => {
               <div class="chips"><span class="chip" style="--c:${C.topic(c.topic)?.color || "#888"}">${esc(topicName(c.topic))}</span>
                 <span class="badge-inline">반응 ${c.score}</span><span class="badge-inline">${c.mo < 1 ? "이번 달" : `${c.mo}개월 전`}</span>
                 <span class="badge-inline">${NT.views.KV_LABEL[c.kv] || "EN"}</span>
-                ${d ? `<span class="badge-inline ai">🤖 AI 초안 · 적합도 ${{ high: "높음", medium: "보통", low: "낮음" }[d.fit]}</span>` : ""}</div>
+                ${d ? `<span class="badge-inline ai ${d.fit === "low" ? "warn" : ""}">🤖 AI 초안 · 적합도 ${{ high: "높음", medium: "보통", low: "낮음" }[d.fit]}</span>` : ""}</div>
               <h3><a href="https://www.youtube.com/watch?v=${esc(c.id)}" target="_blank" rel="noopener">${esc(c.t)}</a></h3>
               <p class="muted">${esc(c.ch)} · 조회 ${NT.views.fmtViews(c.views)} · 좋아요 ${c.likes.toLocaleString("ko-KR")}</p>
               ${d ? `<p>${esc(d.sum)}</p>` : c.draft?.error ? `<p class="muted">AI 초안 실패: ${esc(c.draft.error)}</p>` : ""}

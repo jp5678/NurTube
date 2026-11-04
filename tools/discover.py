@@ -64,6 +64,19 @@ def weakest(topic: str, videos: list[dict], roadmap: list[dict], reviewed: set[s
     return {"id": v["id"], "t": v["t"], "score": v["score"], "week": week}
 
 
+FIT_ORDER = {"high": 0, "medium": 1, "low": 2}
+
+
+def finalize(items: list[dict]) -> list[dict]:
+    """AI가 수업 적합도 '낮음'으로 본 영상은 교체 제안을 빼고, 적합도→반응 점수 순으로 정렬한다."""
+    out = []
+    for it in items:
+        d = it.get("draft") or {}
+        fit = d.get("fit") if "error" not in d else None
+        out.append({**it, "replace": None if fit == "low" else it.get("replace")})
+    return sorted(out, key=lambda it: (FIT_ORDER.get((it.get("draft") or {}).get("fit"), 1), -it["score"]))
+
+
 def main(use_ai: bool = True) -> dict:
     cfg = load("discovery.json", {})
     topics, roadmap = site_structure()
@@ -129,6 +142,8 @@ def main(use_ai: bool = True) -> dict:
             it["draft"] = ai_draft.draft(it["_metrics"], it["_raw"], ctx)
             status = it["draft"].get("error") or f"적합도 {it['draft'].get('fit')}"
             print(f"  {i}/{len(items)} {it['t'][:40]} — {status}")
+
+    items = finalize(items)
 
     # 4) 저장: 사이트용(댓글 원문 제외)과 업데이트용(반응 수치 포함)
     generated = datetime.datetime.now().isoformat(timespec="minutes")

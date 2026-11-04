@@ -420,3 +420,4 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
   body.nav-collapsed .nav hr { margin: 7px 6px; }
   body.nav-collapsed .nav a.active { box-shadow: none; }
 }
+.badge-inline.warn { background: var(--ng-bg); color: var(--ng); }
