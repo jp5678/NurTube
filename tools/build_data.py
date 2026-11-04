@@ -49,6 +49,16 @@ def korean_view(m, lang):
     return "auto" if cap.get("translate") else "none"
 
 
+def caption_lang(m):
+    """자막 트랙 언어(한국어 우선, 다음 영어). 플레이어가 한국어 자막·자동 번역을 켤 때 쓴다."""
+    tracks = (m.get("captions") or {}).get("tracks") or []
+    for prefix in ("ko", "en"):
+        hit = next((t for t in tracks if t.startswith(prefix)), None)
+        if hit:
+            return hit
+    return tracks[0] if tracks else None
+
+
 def is_available(m):
     return m.get("status", "OK") == "OK" and m.get("embed") is not False
 
@@ -121,6 +131,7 @@ def build(metrics_path):
             "id": vid, "t": title, "ch": c.get("ch") or m["ch"], "dur": duration(m["secs"]),
             "views": m["views"], "likes": m["likes"], "cc": m["comments"], "mo": months_ago(m["date"]),
             "topic": c["topic"], "lv": c["lv"], "lang": lang, "kv": korean_view(m, lang), "rv": vid in reviewed,
+            "cl": caption_lang(m),
             "score": max(0, min(100, m["score"] + c.get("adj", 0))),
             "sig": {"pos": m["pos"], "neg": m["neg"], "aud": m["aud"], "n": m["sampled"], "likeRate": m["likeRate"]},
             "sum": d["sum"], "why": d["why"], "q": c["q"], "a": d["a"], "rx": c["rx"],

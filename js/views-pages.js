@@ -62,7 +62,8 @@ NT.pages = (() => {
     <div class="kv-box kv-${video.kv}">
       <span class="badge-inline">${V.KV_LABEL[video.kv]}</span>
       <p>${KV_HELP[video.kv]}</p>
-      ${video.kv === "audio" ? "" : `<label class="kv-toggle"><input type="checkbox" data-setting="koSubs" ${settings.koSubs ? "checked" : ""} /> 영상 열 때 한국어 자막 자동으로 켜기</label>`}
+      ${video.kv === "audio" ? "" : `<button class="btn small" data-act="ko-subs">🇰🇷 한국어 자막으로 바꾸기</button>
+        <label class="kv-toggle"><input type="checkbox" data-setting="koSubs" ${settings.koSubs ? "checked" : ""} /> 영상 열 때 한국어 자막 자동으로 켜기</label>`}
     </div>`;
 
   const stampList = (video, note) => {

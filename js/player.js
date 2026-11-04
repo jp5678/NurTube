@@ -48,16 +48,80 @@ NT.player = (() => {
   };
 
   /** 영상 페이지가 그려질 때마다 호출. iframe에 enablejsapi=1이 있어야 한다. */
-  const mount = async (iframe) => {
+  // 한국어 자막: 한국어 트랙이 있으면 그것을, 없으면 있는 자막(주로 영어)을 한국어 자동 번역으로 바꾼다.
+  // 자막 모듈은 재생이 시작돼야 불러와지므로 onApiChange에서 처리한다.
+  const applyKorean = (player, baseLang) => {
+    const tracks = player.getOption?.("captions", "tracklist") || [];
+    if (!tracks.length) {
+      // 임베드 플레이어는 자막을 켜기 전까지 목록을 비워 두는 경우가 많다 → 수집 때 기록한 자막 언어로 바로 지정
+      if (!baseLang) return false;
+      player.setOption("captions", "track", baseLang.startsWith("ko")
+        ? { languageCode: baseLang }
+        : { languageCode: baseLang, translationLanguage: { languageCode: "ko", languageName: "한국어" } });
+      return true;
+    }
+    const ko = tracks.find((t) => t.languageCode?.startsWith("ko") && t.kind !== "asr") || tracks.find((t) => t.languageCode?.startsWith("ko"));
+    if (ko) {
+      player.setOption("captions", "track", { languageCode: ko.languageCode });
+      return true;
+    }
+    const base = tracks.find((t) => t.languageCode?.startsWith("en") && t.kind !== "asr")
+      || tracks.find((t) => t.languageCode?.startsWith("en")) || tracks[0];
+    player.setOption("captions", "track", { languageCode: base.languageCode, translationLanguage: { languageCode: "ko", languageName: "한국어" } });
+    return true;
+  };
+
+  /** 영상 페이지가 그려질 때마다 호출. iframe에 enablejsapi=1이 있어야 한다. */
+  const mount = async (iframe, { koreanSubs = false, baseLang = null } = {}) => {
     current = null;
     if (!iframe) return;
     try {
       const YT = await loadApi();
       if (!document.body.contains(iframe)) return; // 그새 다른 화면으로 이동
-      current = new YT.Player(iframe);
+      let applied = false;
+      const tryKorean = (player) => {
+        if (!koreanSubs || applied) return;
+        try { applied = applyKorean(player, baseLang); } catch (err) { console.warn("[NurTube] 한국어 자막 전환 실패", err); }
+      };
+      lastBase = baseLang;
+      current = new YT.Player(iframe, {
+        events: {
+          onApiChange: (e) => tryKorean(e.target),
+          // 자막 모듈이 늦게 준비되는 경우: 재생이 시작되면 잠시 뒤 한 번 더 시도
+          onStateChange: (e) => {
+            if (e.data !== 1 || applied) return; // 1 = 재생 중
+            [800, 2500].forEach((ms) => setTimeout(() => { applied = false; tryKorean(e.target); }, ms));
+          },
+        },
+      });
     } catch (err) {
       console.warn("[NurTube] 플레이어 제어를 사용할 수 없습니다.", err);
     }
+  };
+
+  let lastBase = null;
+  /** '한국어 자막으로 바꾸기' 버튼: 자막을 켜고 한국어(또는 한국어 자동 번역)로 바꾼다 */
+  const koreanNow = () => {
+    if (!current?.setOption) return false;
+    try {
+      current.loadModule?.("captions");
+      return applyKorean(current, lastBase);
+    } catch (err) {
+      console.warn("[NurTube] 한국어 자막 전환 실패", err);
+      return false;
+    }
+  };
+
+  const captionTrack = () => {
+    try { return current?.getOption?.("captions", "track") || null; } catch { return null; }
+  };
+
+  // 문제 확인용: 플레이어가 알려 주는 자막 목록과 현재 선택
+  const captionInfo = () => {
+    try {
+      return { options: current?.getOptions?.() || [], tracks: current?.getOption?.("captions", "tracklist") || [],
+        track: captionTrack(), retry: (lang) => applyKorean(current, lang) };
+    } catch (err) { return { error: String(err) }; }
   };
 
   const time = () => {
@@ -71,5 +135,5 @@ NT.player = (() => {
     return true;
   };
 
-  return { mount, time, seek };
+  return { mount, time, seek, koreanNow, captionTrack, captionInfo };
 })();

@@ -64,7 +64,11 @@
       main.innerHTML = `<p class="empty">화면을 불러오지 못했습니다. 새로고침해 주세요.</p>`;
     }
     main.classList.toggle("watch-layout", route.name === "watch");
-    if (route.name === "watch") NT.player.mount(document.getElementById("yt-player"));
+    if (route.name === "watch") {
+      const v = C.get(route.arg);
+      NT.player.mount(document.getElementById("yt-player"),
+        { koreanSubs: store.get().settings.koSubs && v?.kv !== "audio", baseLang: v?.cl || (v?.lang === "ko" ? "ko" : "en") });
+    }
     document.getElementById("nav-edit").hidden = !store.get().settings.prof;
     document.querySelectorAll(".nav a").forEach((a) =>
       a.classList.toggle("active", a.getAttribute("href") === `#/${route.name === "home" ? "" : route.name}`));
@@ -124,6 +128,9 @@
       }
     },
     stamp: () => insertStamp(),
+    "ko-subs": () => {
+      if (!NT.player.koreanNow()) alert("영상을 재생한 뒤 다시 눌러 주세요. 그래도 안 되면 플레이어의 ⚙ 설정 → 자막 → 자동 번역 → 한국어를 선택하세요.");
+    },
     "export-reviews": () => {
       const s = store.get();
       const ids = [...new Set([...NT.VIDEOS.filter((v) => v.rv).map((v) => v.id), ...s.reviews])];
