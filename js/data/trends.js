@@ -85,4 +85,27 @@ NT.RESOURCES = [
     { name: "국가법령정보센터", url: "https://www.law.go.kr/", note: "의료법·간호법·개인정보보호법 원문" },
     { name: "대한간호협회", url: "https://www.koreanurse.or.kr/", note: "간호 정책·보도자료" },
   ] },
+  { group: "문헌 검색 · 국외", items: [
+    { name: "PubMed", url: "https://pubmed.ncbi.nlm.nih.gov/", note: "의학·간호 문헌 검색의 기본, 무료" },
+    { name: "PubMed Central (PMC)", url: "https://www.ncbi.nlm.nih.gov/pmc/", note: "무료 원문(전문) 논문 모음" },
+    { name: "MeSH 용어 찾기", url: "https://meshb.nlm.nih.gov/", note: "PubMed 검색어(주제어) 확인" },
+    { name: "CINAHL (EBSCO)", url: "https://www.ebsco.com/products/research-databases/cinahl-database", note: "간호·보건 전문 DB, 학교 도서관을 통해 접속" },
+    { name: "Cochrane Library", url: "https://www.cochranelibrary.com/", note: "체계적 문헌고찰 · 근거 수준이 높은 자료" },
+    { name: "Google Scholar", url: "https://scholar.google.com/", note: "학술 통합 검색, 인용 횟수 확인" },
+  ] },
+  { group: "문헌 검색 · 국내", items: [
+    { name: "KoreaMed", url: "https://koreamed.org/", note: "국내 의학·간호 학술지 영문 초록" },
+    { name: "KMbase 의학논문데이터베이스", url: "https://kmbase.medric.or.kr/", note: "국내 의학·간호 논문 검색" },
+    { name: "대한간호학회지 (JKAN)", url: "https://www.jkan.or.kr/", note: "국내 대표 간호학 학술지, 원문 공개" },
+    { name: "RISS", url: "https://www.riss.kr/", note: "국내 학위논문·학술지 통합 검색" },
+    { name: "KCI 한국학술지인용색인", url: "https://www.kci.go.kr/", note: "등재 학술지 논문·인용 정보" },
+    { name: "DBpia", url: "https://www.dbpia.co.kr/", note: "국내 학술지 원문, 학교 도서관을 통해 접속" },
+    { name: "ScienceON", url: "https://scienceon.kisti.re.kr/", note: "과학기술·보건 논문·보고서 통합 검색" },
+  ] },
+  { group: "참고문헌 정리 도구", items: [
+    { name: "Zotero", url: "https://www.zotero.org/", note: "무료 · 브라우저에서 한 번에 저장, Word 인용 삽입" },
+    { name: "Mendeley", url: "https://www.mendeley.com/", note: "무료 · PDF 정리와 인용, 그룹 공유" },
+    { name: "EndNote", url: "https://endnote.com/", note: "유료 · 학교 라이선스 여부를 도서관에서 확인" },
+    { name: "APA Style (7판)", url: "https://apastyle.apa.org/", note: "간호 논문에서 많이 쓰는 인용 양식 안내" },
+  ] },
 ];
