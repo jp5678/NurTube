@@ -116,14 +116,6 @@ NT.player = (() => {
     try { return current?.getOption?.("captions", "track") || null; } catch { return null; }
   };
 
-  // 문제 확인용: 플레이어가 알려 주는 자막 목록과 현재 선택
-  const captionInfo = () => {
-    try {
-      return { options: current?.getOptions?.() || [], tracks: current?.getOption?.("captions", "tracklist") || [],
-        track: captionTrack(), retry: (lang) => applyKorean(current, lang) };
-    } catch (err) { return { error: String(err) }; }
-  };
-
   const time = () => {
     try { return typeof current?.getCurrentTime === "function" ? current.getCurrentTime() : null; } catch { return null; }
   };
@@ -135,5 +127,5 @@ NT.player = (() => {
     return true;
   };
 
-  return { mount, time, seek, koreanNow, captionTrack, captionInfo };
+  return { mount, time, seek, koreanNow, captionTrack };
 })();
