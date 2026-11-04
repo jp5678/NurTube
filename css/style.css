@@ -405,7 +405,6 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
   body.nav-collapsed .nav { padding: 12px 10px; overflow-x: hidden; }
   body.nav-collapsed .nav a { justify-content: center; padding: 10px 0; }
   body.nav-collapsed .nav a span { display: none; }
-  body.nav-collapsed .nav .ico { width: 24px; height: 24px; }
   body.nav-collapsed .nav hr { margin: 8px 6px; }
   body.nav-collapsed .nav a.active { box-shadow: none; }
 }
