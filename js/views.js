@@ -96,8 +96,7 @@ NT.views = (() => {
 
   const playlists = () => `
     <header class="page-head"><h1>재생목록</h1><p>목적별로 묶은 시청 순서. 영상 페이지에서 '다음 영상'으로 이어집니다.</p></header>
-    <div class="playlist-grid">${NT.PLAYLISTS.map((p) => {
-      const ids = C.playlistIds(p);
+    <div class="playlist-grid">${NT.PLAYLISTS.map((p) => ({ p, ids: C.playlistIds(p) })).filter(({ ids }) => ids.length).map(({ p, ids }) => {
       return `<a class="playlist" href="#/playlist/${p.id}">
         <img loading="lazy" src="${thumb(ids[0])}" alt="" />
         <div><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p><span>${ids.length}편</span></div>
@@ -127,7 +126,7 @@ NT.views = (() => {
           <div class="wk"><b>${w.week}주</b><span>${done}/${w.ids.length}</span></div>
           <div class="wk-body"><div class="wk-head"><h3>${esc(w.title)}</h3><div class="wk-chips">${w.extra ? `<a class="quiz-chip" href="${w.extra.href}">${esc(w.extra.label)}</a>` : ""}${quizChip(w, state)}</div></div>
             <ul>${C.resolve(w.ids).map((v) => `<li class="${seen.has(v.id) ? "seen" : ""}">
-              <a href="#/watch/${v.id}?list=roadmap">${esc(v.t)}</a> <small>${v.dur} · ${KV_LABEL[v.kv]} · 반응 ${v.score}</small></li>`).join("")}</ul>
+              <a href="#/watch/${v.id}?list=roadmap">${esc(v.t)}</a> <small>${v.pending ? "새로 추가 · 점수 대기" : `${v.dur} · ${KV_LABEL[v.kv]} · 반응 ${v.score}`}</small></li>`).join("")}</ul>
           </div></li>`;
       }).join("")}</ol>`;
   };

@@ -5,8 +5,7 @@ tools/applied/
 tools/inbox/
 tools/__pycache__/
 .claude/
-docs/.bkit-memory.json
-docs/.pdca-status.json
+docs/
 .DS_Store
 
 # 사용 설명서 PDF(사이트에서 언제든 다시 만들 수 있음)

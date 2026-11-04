@@ -32,6 +32,7 @@ NT.player = (() => {
   const API_SRC = "https://www.youtube.com/iframe_api";
   let apiReady = null;
   let current = null;
+  let lastBase = null; // 마지막으로 연 영상의 자막 언어('한국어 자막으로 바꾸기' 버튼용)
 
   const loadApi = () => {
     if (window.YT?.Player) return Promise.resolve(window.YT);
@@ -47,7 +48,6 @@ NT.player = (() => {
     return apiReady;
   };
 
-  /** 영상 페이지가 그려질 때마다 호출. iframe에 enablejsapi=1이 있어야 한다. */
   // 한국어 자막: 한국어 트랙이 있으면 그것을, 없으면 있는 자막(주로 영어)을 한국어 자동 번역으로 바꾼다.
   // 자막 모듈은 재생이 시작돼야 불러와지므로 onApiChange에서 처리한다.
   const applyKorean = (player, baseLang) => {
@@ -99,7 +99,6 @@ NT.player = (() => {
     }
   };
 
-  let lastBase = null;
   /** '한국어 자막으로 바꾸기' 버튼: 자막을 켜고 한국어(또는 한국어 자동 번역)로 바꾼다 */
   const koreanNow = () => {
     if (!current?.setOption) return false;

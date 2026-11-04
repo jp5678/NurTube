@@ -24,7 +24,9 @@ NT.quizView = (() => {
     });
     const done = weeks.filter((w) => w.quiz);
     const avg = done.length ? Math.round(done.reduce((s, w) => s + w.quiz.best / w.quiz.total, 0) / done.length * 100) : 0;
-    return { watched: ids.filter((id) => seen.has(id)).length, total: ids.length, notes: Object.keys(state.notes).length,
+    // 숨겨진 영상의 노트는 학습노트 화면·Word 파일에 나오지 않으므로 개수에서도 뺀다
+    const notes = Object.keys(state.notes).filter((id) => NT.catalog.get(id)).length;
+    return { watched: ids.filter((id) => seen.has(id)).length, total: ids.length, notes,
       quizDone: done.length, quizTotal: NT.ROADMAP.length, quizAvg: avg, weeks };
   };
 

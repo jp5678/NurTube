@@ -2,6 +2,7 @@
 
 처음 한 번:  python3 tools/publish.py setup   → GitHub 저장소 만들기 + Pages 켜기 + 첫 업로드
 매번:       python3 tools/publish.py push "메시지"
+캐시 번호만: python3 tools/publish.py stamp       → index.html의 ?v= 번호만 갱신(업로드 안 함)
 필요: GitHub CLI(gh) 로그인 (터미널에서 `gh auth login`)
 """
 import datetime
@@ -24,9 +25,11 @@ tools/applied/
 tools/inbox/
 tools/__pycache__/
 .claude/
-docs/.bkit-memory.json
-docs/.pdca-status.json
+docs/
 .DS_Store
+
+# 사용 설명서 PDF(사이트에서 언제든 다시 만들 수 있음)
+NurTube_사용설명서.pdf
 """
 
 
@@ -143,7 +146,14 @@ def push(message: str = "update: 영상 데이터 갱신") -> bool:
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "push"
+    arg = sys.argv[2] if len(sys.argv) > 2 else None
     if cmd == "setup":
-        setup(sys.argv[2] if len(sys.argv) > 2 else DEFAULT_REPO)
+        setup(arg or DEFAULT_REPO)
+    elif cmd == "push":
+        sys.exit(0 if push(arg or "update: 영상 데이터 갱신") else 1)
+    elif cmd == "stamp":
+        stamp_assets()
+        print("index.html의 캐시 번호를 갱신했습니다(업로드는 하지 않았습니다).")
     else:
-        push(sys.argv[2] if len(sys.argv) > 2 else "update: 영상 데이터 갱신")
+        # 모르는 명령으로 실수 업로드가 일어나지 않게 멈춘다
+        raise SystemExit(f"알 수 없는 명령: {cmd}\n사용: publish.py setup | push \"메시지\" | stamp")

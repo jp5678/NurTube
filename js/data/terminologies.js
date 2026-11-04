@@ -47,7 +47,7 @@ NT.TERMINOLOGIES = [
     example: "초점 '통증' + 판단 '심한' → 간호진단 진술 '심한 통증'",
     use: "한국어판이 있어 국내 간호기록 표준화 연구에 쓰이며, SNOMED CT와의 연계 작업이 이루어지고 있습니다." },
   { id: "ccc", name: "CCC", ko: "임상간호분류체계", type: "interface", covers: ["d", "i", "o"],
-    by: "Virginia Saba (미국)", url: "https://www.sabacare.com/",
+    by: "Virginia Saba (미국) · 현재 HCA Healthcare 관리", urlLabel: "공식 설명(미국국립의학도서관)", url: "https://www.nlm.nih.gov/research/umls/sourcereleasedocs/current/CCC/index.html",
     what: "간호진단·중재·결과를 하나의 틀(돌봄 요소)로 묶은 분류체계입니다. 원래 가정간호에서 시작됐습니다.",
     structure: "21개 돌봄 요소(care component) 아래 간호진단과 중재가 연결됩니다. 중재는 '사정·수행·교육·관리'의 4가지 행위 유형으로, 결과는 '개선·안정·악화'로 표현합니다.",
     example: "돌봄 요소 '호흡' → 진단 '호흡 양상 장애' → 중재 '호흡 상태 사정(사정)'·'호흡 운동 교육(교육)'",

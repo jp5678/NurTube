@@ -4,6 +4,7 @@
   const main = document.getElementById("main");
   const searchInput = document.getElementById("q");
   const SEARCH_DEBOUNCE_MS = 250;
+  const DOWNLOAD_REVOKE_MS = 10000;
 
   let filters = Object.freeze({ lang: "all", level: "all", length: "all", sort: "keep" });
   let cursor = -1;
@@ -89,9 +90,12 @@
   const download = (filename, content) => {
     const blob = content instanceof Blob ? content : new Blob([content], { type: "text/markdown;charset=utf-8" });
     const url = URL.createObjectURL(blob);
-    const a = Object.assign(document.createElement("a"), { href: url, download: filename });
+    const a = Object.assign(document.createElement("a"), { href: url, download: filename, hidden: true });
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
+    a.remove();
+    // Safari는 클릭 직후 주소를 지우면 다운로드가 취소될 수 있어 잠시 뒤에 정리한다
+    setTimeout(() => URL.revokeObjectURL(url), DOWNLOAD_REVOKE_MS);
   };
 
   const rerenderWatchActions = () => {
@@ -279,7 +283,6 @@
       store.setSetting(setting, e.target.type === "checkbox" ? e.target.checked : e.target.value);
       applyTheme();
       if (setting === "koSubs") render();
-      if (setting === "prof") location.reload(); // 교수자 편집 미리보기를 켜고 끄기
     }
     if (e.target.dataset.act === "review") store.toggleReview(parseHash().arg);
   });
@@ -321,6 +324,7 @@
     if (e.target.matches("input, textarea, select") || e.metaKey || e.ctrlKey || e.altKey) return;
     const onWatch = parseHash().name === "watch";
     const key = e.key;
+    if (key === "Enter" && e.target.closest("a, button, summary")) return; // 포커스된 링크·버튼은 원래 동작대로
     if (pendingG) { pendingG = false; if (key === "h") { location.hash = "#/"; return; } }
     const handlers = {
       "/": () => searchInput.focus(),

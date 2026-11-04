@@ -13,14 +13,33 @@ NT.store = (() => {
     settings: { theme: "auto", frames: false, lang: "all", koSubs: true, prof: false },
   });
 
+  // 저장된 값의 형식이 어긋나도(옛 버전·직접 수정) 화면이 멈추지 않게 기본값으로 바로잡는다
+  const isObj = (x) => x !== null && typeof x === "object" && !Array.isArray(x);
+  const arr = (x) => (Array.isArray(x) ? x : []);
+  const obj = (x) => (isObj(x) ? x : {});
+  const sanitize = (p) => {
+    const edits = obj(p.edits);
+    return {
+      ...DEFAULTS,
+      liked: arr(p.liked).filter((x) => typeof x === "string"),
+      later: arr(p.later).filter((x) => typeof x === "string"),
+      history: arr(p.history).filter((h) => isObj(h) && typeof h.id === "string"),
+      notes: Object.fromEntries(Object.entries(obj(p.notes)).filter(([, n]) => isObj(n) && typeof n.text === "string")),
+      quiz: obj(p.quiz),
+      reviews: arr(p.reviews).filter((x) => typeof x === "string"),
+      edits: { videos: obj(edits.videos), hidden: arr(edits.hidden), unhidden: arr(edits.unhidden),
+        weeks: obj(edits.weeks), excluded: arr(edits.excluded) },
+      student: Object.fromEntries(Object.entries(DEFAULTS.student).map(([k, d]) =>
+        [k, typeof obj(p.student)[k] === "string" ? p.student[k] : d])),
+      settings: { ...DEFAULTS.settings, ...obj(p.settings) },
+    };
+  };
+
   const load = () => {
     try {
       const raw = localStorage.getItem(KEY);
       if (!raw) return DEFAULTS;
-      const parsed = JSON.parse(raw);
-      return { ...DEFAULTS, ...parsed, settings: { ...DEFAULTS.settings, ...(parsed.settings || {}) },
-        student: { ...DEFAULTS.student, ...(parsed.student || {}) },
-        edits: { ...DEFAULTS.edits, ...(parsed.edits || {}) } };
+      return sanitize(obj(JSON.parse(raw)));
     } catch (err) {
       console.warn("[NurTube] 저장소를 읽지 못해 기본값을 사용합니다.", err);
       return DEFAULTS;

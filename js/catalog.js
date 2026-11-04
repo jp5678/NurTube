@@ -98,7 +98,7 @@ NT.catalog = (() => {
       videos: ranked.filter((v) => v.lang === "ko").slice(0, 8) });
     sections.push({ key: "gems", title: "숨은 명작", hint: `조회수 ${HIDDEN_GEM_MAX_VIEWS.toLocaleString()} 미만이지만 반응이 좋은 영상`,
       videos: ranked.filter((v) => v.views < HIDDEN_GEM_MAX_VIEWS && v.score >= 40).slice(0, 8) });
-    sections.push({ key: "recent", title: "최근 1년의 새 영상", hint: "2025.11 이후 게시",
+    sections.push({ key: "recent", title: "최근 1년의 새 영상", hint: "반응 수집 시점 기준 12개월 안에 게시",
       videos: NT.VIDEOS.filter((v) => v.mo <= 12).sort((a, b) => a.mo - b.mo).slice(0, 8) });
     const fresh = NT.TOPICS.filter((t) => !seenTopics.has(t.id))
       .map((t) => ranked.find((v) => v.topic === t.id))

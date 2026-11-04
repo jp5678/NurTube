@@ -63,7 +63,7 @@ NT.docx = (() => {
           const mine = links.filter((l) => l.entry === i);
           return mine.length ? [para(run("영상 속 시간 링크: ", { bold: true }) + mine.map((l) => link(l.rid, `[${l.label}]`)).join(run("  ")))] : [];
         })(),
-        text("답변 가이드 (참고)", "Heading2"), ...v.a.map(bullet),
+        text("답변 가이드 (참고)", "Heading2"), ...(v.a || []).map(bullet),
       ].join("")),
     ].join("");
     return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +

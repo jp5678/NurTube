@@ -23,7 +23,7 @@ NT.termsView = (() => {
         <span class="term-type ${t.type}">${NT.TERM_TYPES[t.type].name}</span></div>
       <p>${esc(t.what)}</p>
       <dl><dt>구성</dt><dd>${esc(t.structure)}</dd><dt>예시</dt><dd>${esc(t.example)}</dd><dt>활용</dt><dd>${esc(t.use)}</dd></dl>
-      <p class="term-foot"><span class="muted">${esc(t.by)}</span> · <a href="${esc(t.url)}" target="_blank" rel="noopener">공식 사이트 ↗</a></p>
+      <p class="term-foot"><span class="muted">${esc(t.by)}</span> · <a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.urlLabel || "공식 사이트")} ↗</a></p>
     </article>`;
 
   const nnn = () => `

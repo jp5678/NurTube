@@ -59,6 +59,25 @@ def clean_text(value, key: str) -> str:
     return str(value or "").strip()[: LIMITS[key]]
 
 
+def safe_level(value) -> int:
+    """수준은 1(입문)~3(심화). 숫자가 아니면 입문으로 본다."""
+    try:
+        return min(3, max(1, int(value)))
+    except (TypeError, ValueError):
+        return 1
+
+
+def read_update(src: str) -> dict:
+    try:
+        with open(src, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as err:
+        raise SystemExit(f"반영 파일을 읽지 못했습니다({err}). '영상 관리 → 반영 파일 내보내기'로 다시 만들어 주세요.")
+    if not isinstance(data, dict):
+        raise SystemExit("반영 파일 형식이 올바르지 않습니다. '영상 관리 → 반영 파일 내보내기'로 다시 만들어 주세요.")
+    return data
+
+
 def validate(update: dict) -> tuple[dict, list[str]]:
     """잘못된 항목은 건너뛰고 이유를 모은다. 반환: (정리된 업데이트, 경고 목록)"""
     topics, weeks = taxonomy_ids()
@@ -77,7 +96,7 @@ def validate(update: dict) -> tuple[dict, list[str]]:
             warnings.append(f"요약·추천 이유·토론 질문·답변 가이드 중 빈 칸이 있어 건너뜀: {vid}")
             continue
         videos[vid] = {"t": clean_text(v.get("t"), "t"), "ch": clean_text(v.get("ch"), "ch"), "topic": v["topic"],
-                       "lv": min(3, max(1, int(v.get("lv") or 1))), "sum": clean_text(v.get("sum"), "sum"),
+                       "lv": safe_level(v.get("lv")), "sum": clean_text(v.get("sum"), "sum"),
                        "why": clean_text(v.get("why"), "why"), "q": clean_text(v.get("q"), "q"),
                        "rx": clean_text(v.get("rx"), "rx"), "a": answers}
     week_map = {}
@@ -161,7 +180,7 @@ def main(arg: str | None = None) -> dict | None:
         print("반영할 파일을 찾지 못했습니다. 사이트의 '영상 관리 → 반영 파일 내보내기'를 먼저 눌러 주세요.")
         return None
     print(f"반영 파일: {src}")
-    update, warnings = validate(json.load(open(src, encoding="utf-8")))
+    update, warnings = validate(read_update(src))
     result = apply(update)
     build(path("metrics.json"))
 

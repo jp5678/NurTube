@@ -2,8 +2,7 @@
 :root {
   --bg: #f7f4ef; --surface: #ffffff; --surface-2: #f2efe9; --tint: #eeebfb; --text: #1f1d2b; --muted: #6b6878;
   --line: #e9e5de; --accent: #4f46e5; --accent-strong: #3f37c9; --accent-ink: #ffffff;
-  --hero-a: #ebe8fc; --hero-b: #e2ebfb; --hero-c: #f8edc9;
-  --blob-peach: #fde3dc; --blob-butter: #fbefc6; --blob-lav: #ece9fb; --blob-sky: #e2ebfb;
+  --hero-a: #ebe8fc; --hero-b: #e2ebfb;
   --brand-red: #e03131; --ok: #15803d; --ok-bg: #ecf8f0; --ng: #d92d2d; --ng-bg: #fdeeee; --tier-hi: #4f46e5; --tier-mid: #e07a5f; --tier-lo: #9a97a6; --global: #4f46e5; --warm: #c2663f;
   --shadow: 0 1px 2px rgb(31 29 43 / .04), 0 10px 28px rgb(31 29 43 / .05);
   --nav-w: 232px; --top-h: 64px; --radius: 20px; --radius-sm: 14px;
@@ -12,8 +11,7 @@
   :root:not([data-theme="light"]) {
     --bg: #15141c; --surface: #1e1d28; --surface-2: #272634; --tint: #2a2848; --text: #ecebf3; --muted: #a3a1b3;
     --line: #33323f; --accent: #8f89ff; --accent-strong: #aaa5ff; --accent-ink: #15142e;
-    --hero-a: #29264a; --hero-b: #1f2a40; --hero-c: #3a3322;
-    --blob-peach: #3a2a2a; --blob-butter: #37321f; --blob-lav: #29274a; --blob-sky: #1f2a40;
+    --hero-a: #29264a; --hero-b: #1f2a40;
     --brand-red: #e8494a; --ok: #4ade80; --ok-bg: #16281d; --ng: #f87171; --ng-bg: #2d1718; --tier-hi: #6d66f0; --tier-mid: #c96a50; --tier-lo: #6f6c7d; --global: #aaa5ff; --warm: #e8936f;
     --shadow: none;
   }
@@ -21,8 +19,7 @@
 :root[data-theme="dark"] {
   --bg: #15141c; --surface: #1e1d28; --surface-2: #272634; --tint: #2a2848; --text: #ecebf3; --muted: #a3a1b3;
   --line: #33323f; --accent: #8f89ff; --accent-strong: #aaa5ff; --accent-ink: #15142e;
-  --hero-a: #29264a; --hero-b: #1f2a40; --hero-c: #3a3322;
-  --blob-peach: #3a2a2a; --blob-butter: #37321f; --blob-lav: #29274a; --blob-sky: #1f2a40;
+  --hero-a: #29264a; --hero-b: #1f2a40;
   --brand-red: #e8494a; --ok: #4ade80; --ok-bg: #16281d; --ng: #f87171; --ng-bg: #2d1718; --tier-hi: #6d66f0; --tier-mid: #c96a50; --tier-lo: #6f6c7d; --global: #aaa5ff; --warm: #e8936f;
   --shadow: none;
 }
