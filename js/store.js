@@ -62,6 +62,7 @@ NT.store = (() => {
       const { [id]: _removed, ...rest } = s.notes;
       return { ...s, notes: text.trim() ? { ...rest, [id]: { text, at: Date.now() } } : rest };
     }),
+    clearNotes: () => update((s) => ({ ...s, notes: {} })),
     setSetting: (key, value) => update((s) => ({ ...s, settings: { ...s.settings, [key]: value } })),
     setStudent: (key, value) => update((s) => ({ ...s, student: { ...s.student, [key]: value.slice(0, 40) } })),
     // 주차별 퀴즈: 가장 최근 결과와 최고 점수를 함께 보관

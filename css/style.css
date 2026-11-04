@@ -494,3 +494,6 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
   a { color: inherit; text-decoration: none; }
   .badge-inline { border: 1px solid #999; }
 }
+.note-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.btn.danger { color: var(--ng); border-color: color-mix(in srgb, var(--ng) 35%, var(--line)); }
+.btn.danger:hover { background: var(--ng-bg); }

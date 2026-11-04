@@ -130,6 +130,18 @@
       }
     },
     stamp: () => insertStamp(),
+    "note-delete": (el) => {
+      const v = C.get(el.dataset.id);
+      if (!confirm(`'${v ? v.t.slice(0, 40) : "이 영상"}' 노트를 삭제할까요? 되돌릴 수 없습니다.`)) return;
+      store.setNote(el.dataset.id, "");
+      render();
+    },
+    "notes-clear": () => {
+      const n = Object.keys(store.get().notes).length;
+      if (!confirm(`학습노트 ${n}개를 모두 지울까요?\n\n되돌릴 수 없습니다. 필요하면 먼저 'Word(.docx) 내보내기'로 저장해 두세요.\n(퀴즈 점수·좋아요·시청 기록은 그대로 남습니다)`)) return;
+      store.clearNotes();
+      render();
+    },
     "print-manual": () => window.print(),
     "ko-subs": () => {
       if (!NT.player.koreanNow()) alert("영상을 재생한 뒤 다시 눌러 주세요. 그래도 안 되면 플레이어의 ⚙ 설정 → 자막 → 자동 번역 → 한국어를 선택하세요.");

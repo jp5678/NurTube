@@ -180,9 +180,12 @@ NT.pages = (() => {
       ${studentForm(state.student)}
       <div class="export-row">
         <button class="btn primary" data-act="export-docx">⬇ Word(.docx) 내보내기 · LMS 제출용</button>
-        ${entries.length ? '<button class="btn" data-act="export">⬇ Markdown(.md)</button>' : ""}
+        ${entries.length ? `<button class="btn" data-act="export">⬇ Markdown(.md)</button>
+          <button class="btn danger" data-act="notes-clear">🗑 학습노트 전체 초기화</button>` : ""}
       </div>
-      ${entries.length ? `<div class="notes">${entries.map(({ video: v, note: n }) => `<article class="note"><a href="#/watch/${v.id}">${esc(v.t)}</a>
+      ${entries.length ? `<div class="notes">${entries.map(({ video: v, note: n }) => `<article class="note">
+          <div class="note-top"><a href="#/watch/${v.id}">${esc(v.t)}</a>
+            <button class="btn small" data-act="note-delete" data-id="${v.id}" title="이 노트 삭제">삭제</button></div>
           <time>${new Date(n.at).toLocaleString("ko-KR")}</time><p>${NT.stamps.linkify(esc(n.text), v.id)}</p></article>`).join("")}</div>`
         : '<p class="empty">아직 노트가 없습니다. 영상 페이지 아래에서 바로 적을 수 있어요. 노트가 없어도 퀴즈 결과만 담아 제출할 수 있습니다.</p>'}`;
   };
