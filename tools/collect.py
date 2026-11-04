@@ -13,6 +13,7 @@ UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit
 
 WORKERS = 3  # 동시 요청 수(너무 높이면 YouTube가 429로 막음)
 RETRIES = 4
+DESC_MAX_CHARS = 3000  # AI 초안용 영상 설명(목차·개요 포함)
 BACKOFF_SECONDS = 15  # 429(요청 과다)이면 15·30·45·60초 쉬고 다시 시도
 
 
@@ -87,7 +88,7 @@ def one(vid):
             comments.append({"t": p["properties"]["content"]["content"], "l": p["toolbar"].get("likeCountNotliked", "0")})
     return {"id": vid, "title": vd.get("title"), "ch": vd.get("author"), "secs": int(vd.get("lengthSeconds", 0)),
             "views": int(vd.get("viewCount", 0)), "likes": int(mf.get("likeCount", 0) or 0),
-            "date": mf.get("uploadDate") or mf.get("publishDate"), "desc": vd.get("shortDescription", "")[:600],
+            "date": mf.get("uploadDate") or mf.get("publishDate"), "desc": vd.get("shortDescription", "")[:DESC_MAX_CHARS],
             "count": count, "comments": comments,
             "embed": pr.get("playabilityStatus", {}).get("playableInEmbed"),
             "status": pr.get("playabilityStatus", {}).get("status", "UNKNOWN"),

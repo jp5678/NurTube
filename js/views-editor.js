@@ -18,8 +18,20 @@ NT.editor = (() => {
 
   const options = (items, selected) => items.map(([v, t]) => `<option value="${v}" ${String(v) === String(selected) ? "selected" : ""}>${esc(t)}</option>`).join("");
 
+  const aiBanner = (v) => (v.ai ? `
+      <div class="ai-banner ${v.fit === "low" ? "warn" : ""}">
+        <b>🤖 AI 초안입니다.</b> 영상 설명란과 시청자 댓글을 바탕으로 작성되어 영상 내용을 직접 보지 않았습니다.
+        <b>영상을 시청하며 확인·수정한 뒤 저장</b>하세요. 수업 적합도: <b>${{ high: "높음", medium: "보통", low: "낮음" }[v.fit] || "-"}</b>
+        ${v.caution ? `<p>🔍 확인할 점: ${esc(v.caution)}</p>` : ""}
+      </div>` : "");
+
+  const replaceBanner = (v) => (v.replaceOf ? `
+      <div class="ai-banner">🔁 저장하면 기존 영상 <b>${esc(v.replaceOf.t)}</b>은 학생 화면에서 숨겨지고, 이 영상이 그 자리(${v.replaceOf.week ? `${v.replaceOf.week}주차` : "로드맵 밖"})를 이어받습니다.
+        ${v.replaceOf.week ? `<p>📝 ${v.replaceOf.week}주차 확인 퀴즈가 새 영상 내용과 맞는지 확인하세요 (<code>js/data/quizzes.js</code>).</p>` : ""}</div>` : "");
+
   const form = (v, isNew) => `
-    <form class="edit-form" data-id="${esc(v.id)}" data-new="${isNew ? 1 : 0}">
+    <form class="edit-form" data-id="${esc(v.id)}" data-new="${isNew ? 1 : 0}" data-replace="${esc(v.replaceOf?.id || "")}">
+      ${aiBanner(v)}${replaceBanner(v)}
       <div class="edit-head">
         <img src="https://i.ytimg.com/vi/${esc(v.id)}/mqdefault.jpg" alt="" />
         <div><span class="badge-inline">${isNew ? "새 영상" : "기존 영상 수정"}</span>
@@ -30,7 +42,7 @@ NT.editor = (() => {
         <label>채널<input name="ch" value="${esc(v.ch)}" maxlength="${LIMITS.ch}" /></label>
         <label>주제<select name="topic">${options(NT.TOPICS.map((t) => [t.id, t.name]), v.topic)}</select></label>
         <label>수준<select name="lv">${options(Object.entries(NT.LEVELS), v.lv)}</select></label>
-        <label>로드맵 주차<select name="week">${options([[0, "로드맵에 넣지 않음"], ...NT.ROADMAP.map((w) => [w.week, `${w.week}주차 · ${w.title}`])], weekOf(v.id))}</select></label>
+        <label>로드맵 주차<select name="week">${options([[0, "로드맵에 넣지 않음"], ...NT.ROADMAP.map((w) => [w.week, `${w.week}주차 · ${w.title}`])], v.week ?? weekOf(v.id))}</select></label>
         <label class="wide">📌 영상 요약<textarea name="sum" rows="3" maxlength="${LIMITS.sum}" required>${esc(v.sum)}</textarea></label>
         <label class="wide">⭐ 추천 이유<textarea name="why" rows="3" maxlength="${LIMITS.why}" required>${esc(v.why)}</textarea></label>
         <label class="wide">🗣 토론 질문<input name="q" value="${esc(v.q)}" maxlength="${LIMITS.q}" required /></label>
@@ -51,6 +63,7 @@ NT.editor = (() => {
       ...e.hidden.filter((id) => !e.videos[id]).map((id) => ({ id, label: "숨김", t: findVideo(id)?.t || id })),
       ...e.unhidden.filter((id) => !e.videos[id]).map((id) => ({ id, label: "다시 보이기", t: findVideo(id)?.t || id })),
       ...Object.keys(e.weeks).filter((id) => !e.videos[id]).map((id) => ({ id, label: "주차 이동", t: findVideo(id)?.t || id })),
+      ...(e.excluded || []).map((id) => ({ id, label: "후보 제외", t: NT.CANDIDATES?.items.find((c) => c.id === id)?.t || id })),
     ];
     const reviews = state.reviews.length;
     return `
@@ -68,6 +81,43 @@ NT.editor = (() => {
           <button class="btn primary" data-act="edit-export" ${rows.length || reviews ? "" : "disabled"}>⬇ 반영 파일 내보내기</button>
           <button class="btn" data-act="edit-clear" ${rows.length || reviews ? "" : "disabled"}>반영 완료 · 변경 목록 비우기</button>
         </div>
+      </section>`;
+  };
+
+  const candidateSection = (state) => {
+    const data = NT.CANDIDATES || { items: [] };
+    const skip = new Set([...Object.keys(state.edits.videos), ...(state.edits.excluded || []), ...allVideos().map((v) => v.id)]);
+    const items = data.items.filter((c) => !skip.has(c.id));
+    const topicName = (id) => C.topic(id)?.name || id;
+    return `
+      <section class="lms">
+        <h2>🔎 추천 후보 ${items.length ? `(${items.length}편)` : ""}</h2>
+        <p class="muted">${data.generatedAt
+          ? `${data.generatedAt.replace("T", " ")} 기준 · 주제별 최근 영상을 찾아 반응 점수를 매기고 기존 영상과 비교했습니다${data.ai ? " · 🤖 AI 초안 포함" : ""}.`
+          : "아직 찾은 후보가 없습니다."}
+          새로 찾으려면 <b>NurTube 업데이트.command → 2번 '새 영상 찾기'</b>를 실행하세요.</p>
+        ${items.length ? `<div class="cand-list">${items.map((c) => {
+          const d = c.draft && !c.draft.error ? c.draft : null;
+          const diff = c.compare ? c.score - c.compare.score : null;
+          return `<article class="cand">
+            <a class="cand-thumb" href="https://www.youtube.com/watch?v=${esc(c.id)}" target="_blank" rel="noopener">
+              <img loading="lazy" src="https://i.ytimg.com/vi/${esc(c.id)}/mqdefault.jpg" alt="" /><span class="dur">${esc(c.dur)}</span></a>
+            <div class="cand-body">
+              <div class="chips"><span class="chip" style="--c:${C.topic(c.topic)?.color || "#888"}">${esc(topicName(c.topic))}</span>
+                <span class="badge-inline">반응 ${c.score}</span><span class="badge-inline">${c.mo < 1 ? "이번 달" : `${c.mo}개월 전`}</span>
+                <span class="badge-inline">${NT.views.KV_LABEL[c.kv] || "EN"}</span>
+                ${d ? `<span class="badge-inline ai">🤖 AI 초안 · 적합도 ${{ high: "높음", medium: "보통", low: "낮음" }[d.fit]}</span>` : ""}</div>
+              <h3><a href="https://www.youtube.com/watch?v=${esc(c.id)}" target="_blank" rel="noopener">${esc(c.t)}</a></h3>
+              <p class="muted">${esc(c.ch)} · 조회 ${NT.views.fmtViews(c.views)} · 좋아요 ${c.likes.toLocaleString("ko-KR")}</p>
+              ${d ? `<p>${esc(d.sum)}</p>` : c.draft?.error ? `<p class="muted">AI 초안 실패: ${esc(c.draft.error)}</p>` : ""}
+              ${c.compare ? `<p class="cmp">같은 주제 최저점 기존 영상 <b>${esc(c.compare.t.slice(0, 40))}</b>(${c.compare.score}점)보다 <b>${diff >= 0 ? "+" : ""}${diff}점</b></p>` : ""}
+              <div class="hero-links">
+                <button class="btn primary small" data-act="cand-add" data-id="${esc(c.id)}">➕ 검토 후 추가</button>
+                ${c.replace ? `<button class="btn small" data-act="cand-replace" data-id="${esc(c.id)}">🔁 '${esc(c.replace.t.slice(0, 18))}…'과 교체</button>` : ""}
+                <button class="btn small" data-act="cand-exclude" data-id="${esc(c.id)}">제외</button>
+              </div>
+            </div></article>`;
+        }).join("")}</div>` : ""}
       </section>`;
   };
 
@@ -91,7 +141,8 @@ NT.editor = (() => {
         <div class="edit-add"><select id="edit-pick"><option value="">영상을 고르세요 (${allVideos().length}편)</option>
           ${[...allVideos()].sort((a, b) => a.t.localeCompare(b.t, "ko")).map((v) => `<option value="${esc(v.id)}">${esc(v.t.slice(0, 70))}${NT.HIDDEN_VIDEOS?.some((h) => h.id === v.id) ? " (숨김)" : ""}</option>`).join("")}</select>
           <button class="btn" data-act="edit-open">수정하기</button></div>
-      </section>`}
+      </section>
+      ${candidateSection(state)}`}
       ${changeList(state)}`;
   };
 
@@ -107,7 +158,22 @@ NT.editor = (() => {
     };
   };
 
+  const candidate = (id) => NT.CANDIDATES?.items.find((c) => c.id === id);
+
+  const fromCandidate = (c, replace) => {
+    const d = c.draft && !c.draft.error ? c.draft : {};
+    return {
+      id: c.id, t: c.t, ch: c.ch, topic: d.topic || c.topic, lv: d.lv || 1,
+      sum: d.sum || "", why: d.why || "", q: d.q || "", a: d.a || [], rx: d.rx || "",
+      week: replace ? c.replace.week : d.week ?? 0, ai: Boolean(d.sum), fit: d.fit, caution: d.caution,
+      replaceOf: replace ? c.replace : null,
+    };
+  };
+
   const actions = (ctx) => ({
+    "cand-add": (el) => { NT.editor.draft = fromCandidate(candidate(el.dataset.id), false); location.hash = `#/edit/${el.dataset.id}`; ctx.render(); },
+    "cand-replace": (el) => { NT.editor.draft = fromCandidate(candidate(el.dataset.id), true); location.hash = `#/edit/${el.dataset.id}`; ctx.render(); },
+    "cand-exclude": (el) => { NT.store.excludeCandidate(el.dataset.id); ctx.render(); },
     "edit-fetch": async () => {
       const id = parseId(document.getElementById("edit-url")?.value);
       if (!id) { alert("YouTube 주소에서 영상 ID를 찾지 못했습니다. 주소를 다시 확인해 주세요."); return; }
@@ -136,6 +202,7 @@ NT.editor = (() => {
       if (!video.a.length) { alert("답변 가이드를 한 줄 이상 적어 주세요."); return; }
       const before = weekOf(video.id);
       NT.store.saveEdit(video, week !== before ? week : undefined);
+      if (formEl.dataset.replace) NT.store.setHidden(formEl.dataset.replace, true); // 교체: 기존 영상 숨김
       NT.editor.draft = null;
       location.hash = `#/watch/${video.id}`;
       location.reload(); // 변경을 목록·로드맵에 다시 적용

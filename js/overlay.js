@@ -3,7 +3,7 @@
 window.NT = window.NT || {};
 
 (() => {
-  const EMPTY = { videos: {}, hidden: [], unhidden: [], weeks: {} };
+  const EMPTY = { videos: {}, hidden: [], unhidden: [], weeks: {}, excluded: [] };
   const published = { hidden: [], weeks: {}, ...(NT.OVERRIDES || {}) };
   const state = NT.store.get();
   const local = state.settings.prof ? { ...EMPTY, ...state.edits } : EMPTY;

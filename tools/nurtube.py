@@ -17,10 +17,12 @@ MENU = """
 ──────────────────────────────────────────
   1) 영상 관리 변경사항 반영 + GitHub 업로드
      (사이트 '영상 관리'에서 '반영 파일 내보내기'를 먼저 누르세요)
-  2) 학기 점검: 반응 재수집·삭제 영상 점검 + GitHub 업로드
-  3) 내 컴퓨터에서 사이트 미리보기
-  4) GitHub 처음 연결 (최초 1회)
-  5) 끝내기
+  2) 새 영상 찾기 + AI 초안 → 사이트 '추천 후보'에 표시
+  3) 학기 점검: 반응 재수집·삭제 영상 점검 + GitHub 업로드
+  4) 내 컴퓨터에서 사이트 미리보기
+  5) AI 설정 (Claude API 키 등록·연결 확인)
+  6) GitHub 처음 연결 (최초 1회)
+  7) 끝내기
 ──────────────────────────────────────────"""
 
 
@@ -32,7 +34,7 @@ def ask(prompt: str, default: bool = True) -> bool:
 
 def offer_push(message: str) -> None:
     if not publish.remote_url():
-        print("\n(아직 GitHub에 연결되지 않아 이 컴퓨터에만 반영되었습니다. 4번으로 처음 연결을 해 주세요.)")
+        print("\n(아직 GitHub에 연결되지 않아 이 컴퓨터에만 반영되었습니다. 6번으로 처음 연결을 해 주세요.)")
         return
     if ask("\n학생들이 보는 사이트(GitHub)에 지금 올릴까요?"):
         publish.push(message)
@@ -56,6 +58,32 @@ def do_refresh() -> None:
     offer_push("update: 학기 점검 반영")
 
 
+def do_discover() -> None:
+    import ai_draft
+    import discover
+    use_ai = ai_draft.get_key() is not None
+    if use_ai:
+        print(f"주제별로 새 영상을 찾고 Claude({ai_draft.config()['model']})로 초안을 씁니다. 5~15분 걸릴 수 있습니다.")
+        print("Claude API 사용료가 듭니다(후보 1편당 1회 호출).")
+        use_ai = ask("AI 초안까지 만들까요?")
+    result = discover.main(use_ai=use_ai)
+    if result["items"]:
+        print("\n후보를 확인하는 방법: 4번(미리보기)으로 사이트를 열거나, GitHub에 올린 뒤 사이트에서 교수자 모드 → 영상 관리")
+        offer_push("chore: 새 영상 추천 후보 갱신")
+
+
+def do_ai_setup() -> None:
+    import importlib.util
+    if importlib.util.find_spec("anthropic") is None:
+        print("Claude API 패키지(anthropic)를 설치합니다…")
+        subprocess.run([sys.executable, "-m", "pip", "install", "--user", "--quiet", "anthropic"], check=False)
+    import ai_draft
+    if ai_draft.get_key() and not ask("이미 등록된 키가 있습니다. 새 키로 바꿀까요?", default=False):
+        ai_draft.check()
+        return
+    ai_draft.set_key()
+
+
 def do_preview() -> None:
     url = f"http://localhost:{PREVIEW_PORT}/"
     print(f"미리보기: {url}  (창을 닫거나 Ctrl+C로 종료)")
@@ -71,7 +99,7 @@ def do_setup() -> None:
         publish.setup(name)
 
 
-ACTIONS = {"1": do_update, "2": do_refresh, "3": do_preview, "4": do_setup}
+ACTIONS = {"1": do_update, "2": do_discover, "3": do_refresh, "4": do_preview, "5": do_ai_setup, "6": do_setup}
 
 
 def main() -> None:
@@ -79,11 +107,11 @@ def main() -> None:
     while True:
         print(MENU)
         choice = input("번호를 입력하세요: ").strip()
-        if choice in ("5", "q", ""):
+        if choice in ("7", "q", ""):
             break
         action = ACTIONS.get(choice)
         if not action:
-            print("1~5 중에서 골라 주세요.")
+            print("1~7 중에서 골라 주세요.")
             continue
         try:
             action()

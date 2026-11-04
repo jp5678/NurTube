@@ -1,0 +1,25 @@
+{
+ "_설명": "'새 영상 찾기'가 주제별로 쓰는 검색어와 기준. 검색어를 바꾸거나 늘려도 됩니다.",
+ "max_age_months": 24,
+ "per_topic": 2,
+ "pool_per_topic": 5,
+ "min_minutes": 1.5,
+ "max_minutes": 90,
+ "min_views": 300,
+ "replace_margin": 8,
+ "queries": {
+  "ni": ["간호정보학 강의", "nursing informatics introduction"],
+  "ehr": ["간호기록 전자의무기록 EMR", "nursing documentation EHR"],
+  "std": ["의료정보 표준 FHIR SNOMED", "HL7 FHIR explained healthcare"],
+  "aibasic": ["의료 인공지능 머신러닝 기초", "machine learning healthcare explained"],
+  "genai": ["의료 생성형 AI LLM", "large language models medicine"],
+  "ainurse": ["간호 인공지능 병원 사례", "AI in nursing practice"],
+  "cds": ["임상의사결정지원 조기경보 AI", "AI early warning sepsis nurses"],
+  "smart": ["스마트병원 가상간호", "virtual nursing hospital"],
+  "study": ["간호학생 ChatGPT 공부법", "ChatGPT nursing students study"],
+  "telehealth": ["원격의료 비대면 진료 재택의료", "telehealth nursing remote patient monitoring"],
+  "ethics": ["의료 AI 윤리 편향", "AI ethics bias healthcare"],
+  "reg": ["의료 AI 규제 식약처 가이드라인", "FDA AI medical device regulation"],
+  "career": ["간호정보 전문가 커리어", "nurse informaticist career"]
+ }
+}

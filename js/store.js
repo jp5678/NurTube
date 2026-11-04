@@ -8,7 +8,7 @@ NT.store = (() => {
   const DEFAULTS = Object.freeze({
     liked: [], later: [], history: [], notes: {}, quiz: {}, reviews: [],
     // 교수자 편집(아직 학생에게 반영 전): 추가·수정 영상, 숨김, 로드맵 주차 이동
-    edits: { videos: {}, hidden: [], unhidden: [], weeks: {} },
+    edits: { videos: {}, hidden: [], unhidden: [], weeks: {}, excluded: [] },
     student: { name: "", id: "", section: "" },
     settings: { theme: "auto", frames: false, lang: "all", koSubs: true, prof: false },
   });
@@ -82,10 +82,14 @@ NT.store = (() => {
         hidden: hidden ? [...new Set([...s.edits.hidden, id])] : s.edits.hidden.filter((x) => x !== id),
         unhidden: hidden ? s.edits.unhidden.filter((x) => x !== id) : [...new Set([...s.edits.unhidden, id])] },
     })),
+    excludeCandidate: (id) => update((s) => ({
+      ...s, edits: { ...s.edits, excluded: [...new Set([...(s.edits.excluded || []), id])] },
+    })),
     discardEdit: (id) => update((s) => {
       const { [id]: _v, ...videos } = s.edits.videos;
       const { [id]: _w, ...weeks } = s.edits.weeks;
-      return { ...s, edits: { videos, weeks, hidden: s.edits.hidden.filter((x) => x !== id), unhidden: s.edits.unhidden.filter((x) => x !== id) } };
+      return { ...s, edits: { videos, weeks, hidden: s.edits.hidden.filter((x) => x !== id),
+        unhidden: s.edits.unhidden.filter((x) => x !== id), excluded: (s.edits.excluded || []).filter((x) => x !== id) } };
     }),
     clearEdits: () => update((s) => ({ ...s, edits: DEFAULTS.edits, reviews: [] })),
   };

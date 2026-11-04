@@ -88,7 +88,7 @@ def validate(update: dict) -> tuple[dict, list[str]]:
             warnings.append(f"주차 값 오류로 건너뜀: {vid} → {wk}")
     ids = lambda key: [x for x in (update.get(key) or []) if ID_RE.match(str(x))]
     return {"videos": videos, "weeks": week_map, "hidden": ids("hidden"), "unhidden": ids("unhidden"),
-            "reviewed": ids("reviewed")}, warnings
+            "reviewed": ids("reviewed"), "excluded": ids("excluded")}, warnings
 
 
 def details_file_of(vid: str) -> str:
@@ -128,12 +128,20 @@ def apply(update: dict) -> dict:
     overrides = {"hidden": sorted(hidden), "weeks": {**overrides.get("weeks", {}), **update["weeks"]}}
     save("overrides.json", overrides)
 
+    excluded = load("excluded.json", {"excluded": []})
+    save("excluded.json", {"excluded": sorted(set(excluded.get("excluded", [])) | set(update["excluded"]))})
+
     reviewed = load("reviewed.json", {"reviewed": []})
     reviewed_ids = sorted(set(reviewed.get("reviewed", [])) | set(update["reviewed"]))
     save("reviewed.json", {"reviewed": reviewed_ids})
 
     # 반응 데이터가 없는 영상만 수집(새 영상 + 지난번 수집 실패). 기존 영상은 학기 점검 때 일괄 재수집
     new_ids = [vid for vid in curated if vid not in metrics]
+    # '새 영상 찾기'에서 이미 모은 반응 수치가 있으면 다시 요청하지 않는다
+    from_candidates = {c["id"]: c["metrics"] for c in load("candidates.json", {"items": []}).get("items", [])}
+    for vid in [v for v in new_ids if v in from_candidates]:
+        metrics[vid] = from_candidates[vid]
+    new_ids = [vid for vid in new_ids if vid not in metrics]
     failed = []
     for vid in new_ids:
         raw = safe(vid)
@@ -144,7 +152,7 @@ def apply(update: dict) -> dict:
         metrics[vid] = {k: val for k, val in row.items() if k not in ("top", "desc")}
     save("metrics.json", list(metrics.values()))
     return {"added": added, "edited": edited, "hidden": update["hidden"], "unhidden": update["unhidden"],
-            "moved": list(update["weeks"]), "reviewed": update["reviewed"], "failed": failed}
+            "moved": list(update["weeks"]), "reviewed": update["reviewed"], "excluded": update["excluded"], "failed": failed}
 
 
 def main(arg: str | None = None) -> dict | None:
@@ -163,7 +171,8 @@ def main(arg: str | None = None) -> dict | None:
 
     print("\n✅ 반영 완료")
     print(f"  추가 {len(result['added'])}편 · 수정 {len(result['edited'])}편 · 숨김 {len(result['hidden'])}편 · "
-          f"다시 보이기 {len(result['unhidden'])}편 · 주차 이동 {len(result['moved'])}편 · 검수 {len(result['reviewed'])}편")
+          f"다시 보이기 {len(result['unhidden'])}편 · 주차 이동 {len(result['moved'])}편 · 검수 {len(result['reviewed'])}편 · "
+          f"후보 제외 {len(result['excluded'])}편")
     if result["failed"]:
         print(f"  ⚠ 반응 점수를 아직 못 가져온 영상 {len(result['failed'])}편은 '점수 대기'로 게시했습니다. 다음 업데이트 때 다시 시도합니다.")
     for w in warnings:
