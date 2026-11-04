@@ -4,7 +4,7 @@
   --line: #e9e5de; --accent: #4f46e5; --accent-strong: #3f37c9; --accent-ink: #ffffff;
   --hero-a: #ebe8fc; --hero-b: #e2ebfb; --hero-c: #f8edc9;
   --blob-peach: #fde3dc; --blob-butter: #fbefc6; --blob-lav: #ece9fb; --blob-sky: #e2ebfb;
-  --brand-red: #e03131; --tier-hi: #4f46e5; --tier-mid: #e07a5f; --tier-lo: #9a97a6; --global: #4f46e5; --warm: #c2663f;
+  --brand-red: #e03131; --ok: #15803d; --ok-bg: #ecf8f0; --ng: #d92d2d; --ng-bg: #fdeeee; --tier-hi: #4f46e5; --tier-mid: #e07a5f; --tier-lo: #9a97a6; --global: #4f46e5; --warm: #c2663f;
   --shadow: 0 1px 2px rgb(31 29 43 / .04), 0 10px 28px rgb(31 29 43 / .05);
   --nav-w: 232px; --top-h: 64px; --radius: 20px; --radius-sm: 14px;
 }
@@ -14,7 +14,7 @@
     --line: #33323f; --accent: #8f89ff; --accent-strong: #aaa5ff; --accent-ink: #15142e;
     --hero-a: #29264a; --hero-b: #1f2a40; --hero-c: #3a3322;
     --blob-peach: #3a2a2a; --blob-butter: #37321f; --blob-lav: #29274a; --blob-sky: #1f2a40;
-    --brand-red: #e8494a; --tier-hi: #6d66f0; --tier-mid: #c96a50; --tier-lo: #6f6c7d; --global: #aaa5ff; --warm: #e8936f;
+    --brand-red: #e8494a; --ok: #4ade80; --ok-bg: #16281d; --ng: #f87171; --ng-bg: #2d1718; --tier-hi: #6d66f0; --tier-mid: #c96a50; --tier-lo: #6f6c7d; --global: #aaa5ff; --warm: #e8936f;
     --shadow: none;
   }
 }
@@ -23,7 +23,7 @@
   --line: #33323f; --accent: #8f89ff; --accent-strong: #aaa5ff; --accent-ink: #15142e;
   --hero-a: #29264a; --hero-b: #1f2a40; --hero-c: #3a3322;
   --blob-peach: #3a2a2a; --blob-butter: #37321f; --blob-lav: #29274a; --blob-sky: #1f2a40;
-  --brand-red: #e8494a; --tier-hi: #6d66f0; --tier-mid: #c96a50; --tier-lo: #6f6c7d; --global: #aaa5ff; --warm: #e8936f;
+  --brand-red: #e8494a; --ok: #4ade80; --ok-bg: #16281d; --ng: #f87171; --ng-bg: #2d1718; --tier-hi: #6d66f0; --tier-mid: #c96a50; --tier-lo: #6f6c7d; --global: #aaa5ff; --warm: #e8936f;
   --shadow: none;
 }
 
@@ -324,12 +324,24 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 .quiz label:hover { background: var(--surface-2); }
 .quiz input[type="radio"] { margin-top: 4px; accent-color: var(--accent); flex: none; }
 .quiz > .btn { justify-self: start; }
-.quiz-result { padding: 22px 24px; margin-bottom: 16px; border-radius: var(--radius); background: var(--surface-2); max-width: 860px; }
-.quiz-result.pass { background: var(--tint); }
+.quiz-result { padding: 22px 24px; margin-bottom: 16px; border-radius: var(--radius); max-width: 860px;
+  background: var(--ng-bg); border: 1px solid color-mix(in srgb, var(--ng) 35%, transparent); }
+.quiz-result h2 { color: var(--ng); }
+.quiz-result.pass { background: var(--ok-bg); border-color: color-mix(in srgb, var(--ok) 35%, transparent); }
+.quiz-result.pass h2 { color: var(--ok); }
 .quiz-result h2 { margin: 0 0 4px; }
 .quiz-review { display: grid; gap: 10px; max-width: 860px; padding-left: 22px; }
 .quiz-review li { padding: 14px 16px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line); }
-.quiz-review li.ng { border-color: color-mix(in srgb, var(--tier-mid) 45%, var(--line)); }
+/* 맞힌 문제는 초록, 틀린 문제는 빨강 */
+.quiz-review li.ok { background: var(--ok-bg); border-color: color-mix(in srgb, var(--ok) 40%, transparent); border-left: 5px solid var(--ok); }
+.quiz-review li.ng { background: var(--ng-bg); border-color: color-mix(in srgb, var(--ng) 40%, transparent); border-left: 5px solid var(--ng); }
+.quiz-review li.ok::marker { color: var(--ok); font-weight: 700; }
+.quiz-review li.ng::marker { color: var(--ng); font-weight: 700; }
+.quiz-review .mark { display: inline-block; padding: 1px 9px; margin-right: 4px; border-radius: 999px; font-size: 12px; color: #fff; vertical-align: 1px; }
+.quiz-review li.ok .mark { background: var(--ok); }
+.quiz-review li.ng .mark { background: var(--ng); }
+.quiz-review .mine { color: var(--ng); font-weight: 600; }
+.quiz-review .right { color: var(--ok); font-weight: 700; }
 .quiz-review p { margin: 4px 0; }
 .quiz-review .qq { font-weight: 700; }
 .quiz-review .explain { color: var(--muted); }

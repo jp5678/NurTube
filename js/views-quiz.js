@@ -41,8 +41,8 @@ NT.quizView = (() => {
       </section>
       <ol class="quiz-review">${items.map((it, i) => {
         const ok = answers[i] === it.a;
-        return `<li class="${ok ? "ok" : "ng"}"><p class="qq">${ok ? "⭕" : "❌"} ${esc(it.q)}</p>
-          ${ok ? "" : `<p>내 답: ${esc(it.o[answers[i]])}</p>`}<p><b>정답:</b> ${esc(it.o[it.a])}</p>
+        return `<li class="${ok ? "ok" : "ng"}"><p class="qq"><span class="mark">${ok ? "정답" : "오답"}</span> ${esc(it.q)}</p>
+          ${ok ? "" : `<p class="mine">✗ 내 답: ${esc(it.o[answers[i]])}</p>`}<p class="right">✓ 정답: ${esc(it.o[it.a])}</p>
           <p class="explain">💡 ${esc(it.e)}</p></li>`;
       }).join("")}</ol>`;
   };
