@@ -4,8 +4,10 @@
 매번:       python3 tools/publish.py push "메시지"
 필요: GitHub CLI(gh) 로그인 (터미널에서 `gh auth login`)
 """
+import datetime
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -75,6 +77,17 @@ def ensure_identity() -> None:
     run("git", "config", "user.email", f"{uid}+{login}@users.noreply.github.com")
 
 
+ASSET_RE = re.compile(r'((?:src|href)="(?:js|css)/[^"?]+\.(?:js|css))(?:\?v=[^"]*)?"')
+
+
+def stamp_assets() -> None:
+    """index.html의 스크립트·스타일 주소에 ?v=업로드시각을 붙여, 업로드 뒤 브라우저가 옛 파일을 쓰지 않게 한다."""
+    path = os.path.join(ROOT, "index.html")
+    version = datetime.datetime.now().strftime("%Y%m%d%H%M")
+    text = open(path, encoding="utf-8").read()
+    open(path, "w", encoding="utf-8").write(ASSET_RE.sub(lambda m: f'{m.group(1)}?v={version}"', text))
+
+
 def ensure_gitignore() -> None:
     path = os.path.join(ROOT, ".gitignore")
     if not os.path.exists(path):
@@ -91,6 +104,7 @@ def setup(repo_name: str = DEFAULT_REPO) -> None:
     if not is_repo():
         run("git", "init", "-b", BRANCH)
     ensure_identity()
+    stamp_assets()
     run("git", "add", "-A")
     if out("git", "status", "--porcelain"):
         run("git", "commit", "-m", "feat: NurTube 첫 배포")
@@ -115,6 +129,8 @@ def push(message: str = "update: 영상 데이터 갱신") -> bool:
     if not out("git", "status", "--porcelain"):
         print("올릴 변경이 없습니다.")
         return True
+    stamp_assets()
+    run("git", "add", "index.html")
     run("git", "commit", "-m", message)
     result = run("git", "push", "origin", BRANCH, check=False, capture=True)
     if result.returncode != 0:
