@@ -3285,5 +3285,187 @@
     "ko"
    ]
   }
+ },
+ {
+  "id": "meBtk8IcmuY",
+  "score": 71,
+  "likes": 251,
+  "views": 10741,
+  "likeRate": 2.34,
+  "comments": 7,
+  "sampled": 6,
+  "pos": 5,
+  "neg": 0,
+  "aud": 3,
+  "date": "2020-12-03",
+  "secs": 626,
+  "title": "[책읽기] 오마하 간호진단 문제분류체계 알아보기 | 간호직 공무원 시험 입문자를 위한 개념 읽어주는 컨텐츠",
+  "ch": "김희영의 널스토리",
+  "embed": true,
+  "status": "OK",
+  "captions": {
+   "koManual": false,
+   "koAuto": true,
+   "translate": true,
+   "tracks": [
+    "ko"
+   ]
+  }
+ },
+ {
+  "id": "60E7ESDiGco",
+  "score": 64,
+  "likes": 1029,
+  "views": 61698,
+  "likeRate": 1.67,
+  "comments": 59,
+  "sampled": 20,
+  "pos": 10,
+  "neg": 0,
+  "aud": 7,
+  "date": "2022-06-29",
+  "secs": 774,
+  "title": "NANDA Nursing Diagnosis: where are they?!",
+  "ch": "NursingSOS",
+  "embed": true,
+  "status": "OK",
+  "captions": {
+   "koManual": false,
+   "koAuto": false,
+   "translate": true,
+   "tracks": [
+    "en"
+   ]
+  }
+ },
+ {
+  "id": "nOTIIYVlYjM",
+  "score": 56,
+  "likes": 157,
+  "views": 6812,
+  "likeRate": 2.3,
+  "comments": 6,
+  "sampled": 5,
+  "pos": 3,
+  "neg": 0,
+  "aud": 1,
+  "date": "2021-03-31",
+  "secs": 880,
+  "title": "Standardized Nursing Languages Pt 1",
+  "ch": "Registered Nurse to Be",
+  "embed": true,
+  "status": "OK",
+  "captions": {
+   "koManual": false,
+   "koAuto": false,
+   "translate": true,
+   "tracks": [
+    "en"
+   ]
+  }
+ },
+ {
+  "id": "RK_8mzzYKwM",
+  "score": 49,
+  "likes": 102,
+  "views": 13503,
+  "likeRate": 0.76,
+  "comments": 5,
+  "sampled": 4,
+  "pos": 3,
+  "neg": 0,
+  "aud": 1,
+  "date": "2012-10-18",
+  "secs": 1128,
+  "title": "Module 1:  Omaha System Basics",
+  "ch": "Kern PubHealthNSG",
+  "embed": true,
+  "status": "OK",
+  "captions": {
+   "koManual": false,
+   "koAuto": false,
+   "translate": true,
+   "tracks": [
+    "en"
+   ]
+  }
+ },
+ {
+  "id": "oIAfQptjYJ4",
+  "score": 30,
+  "likes": 8,
+  "views": 411,
+  "likeRate": 1.95,
+  "comments": 0,
+  "sampled": 0,
+  "pos": 0,
+  "neg": 0,
+  "aud": 0,
+  "date": "2024-11-18",
+  "secs": 3020,
+  "title": "Using Standardized Nursing Terminologies from multiple hospitals into a Statewide Data Trust",
+  "ch": "NANDA® brought to you by INKA",
+  "embed": true,
+  "status": "OK",
+  "captions": {
+   "koManual": false,
+   "koAuto": false,
+   "translate": true,
+   "tracks": [
+    "en"
+   ]
+  }
+ },
+ {
+  "id": "hZ6OM2bEiIE",
+  "score": 21,
+  "likes": 7,
+  "views": 1282,
+  "likeRate": 0.55,
+  "comments": 0,
+  "sampled": 0,
+  "pos": 0,
+  "neg": 0,
+  "aud": 0,
+  "date": "2015-10-06",
+  "secs": 97,
+  "title": "Dr Norma Lang looks back at the beginning of ICNP",
+  "ch": "ICN-International Council of Nurses",
+  "embed": true,
+  "status": "OK",
+  "captions": {
+   "koManual": false,
+   "koAuto": false,
+   "translate": true,
+   "tracks": [
+    "en"
+   ]
+  }
+ },
+ {
+  "id": "Lsm9iOhUKvw",
+  "score": 19,
+  "likes": 0,
+  "views": 48,
+  "likeRate": null,
+  "comments": 0,
+  "sampled": 0,
+  "pos": 0,
+  "neg": 0,
+  "aud": 0,
+  "date": "2025-09-30",
+  "secs": 550,
+  "title": "Part II: Clinical Care Classification (CCC) System Overview",
+  "ch": "Clinical Care Classification System",
+  "embed": true,
+  "status": "OK",
+  "captions": {
+   "koManual": false,
+   "koAuto": false,
+   "translate": true,
+   "tracks": [
+    "en"
+   ]
+  }
  }
 ]

@@ -124,7 +124,7 @@ NT.views = (() => {
         const done = w.ids.filter((id) => seen.has(id)).length;
         return `<li class="${done === w.ids.length ? "done" : ""}">
           <div class="wk"><b>${w.week}주</b><span>${done}/${w.ids.length}</span></div>
-          <div class="wk-body"><div class="wk-head"><h3>${esc(w.title)}</h3>${quizChip(w, state)}</div>
+          <div class="wk-body"><div class="wk-head"><h3>${esc(w.title)}</h3><div class="wk-chips">${w.extra ? `<a class="quiz-chip" href="${w.extra.href}">${esc(w.extra.label)}</a>` : ""}${quizChip(w, state)}</div></div>
             <ul>${C.resolve(w.ids).map((v) => `<li class="${seen.has(v.id) ? "seen" : ""}">
               <a href="#/watch/${v.id}?list=roadmap">${esc(v.t)}</a> <small>${v.dur} · ${KV_LABEL[v.kv]} · 반응 ${v.score}</small></li>`).join("")}</ul>
           </div></li>`;

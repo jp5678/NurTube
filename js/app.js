@@ -46,6 +46,7 @@
     history: (s) => V.listPage("시청 기록", "", C.resolve(s.history.map((h) => h.id)), s),
     trends: () => P.trends(),
     resources: () => P.resources(),
+    terms: (s) => NT.termsView.page(s),
     notes: (s) => P.notes(s),
     quiz: (s, { arg }) => NT.quizView.page(Number(arg), s),
     edit: (s, { arg }) => NT.editor.page(arg, s),

@@ -136,7 +136,8 @@ NT.pages = (() => {
       </article>`).join("")}</div>`;
 
   const resources = () => `
-    <header class="page-head"><h1>학습 자원</h1><p>과제·토론·실습에 바로 쓰는 국내외 기관과 도구.</p></header>
+    <header class="page-head"><h1>학습 자원</h1><p>과제·토론·실습에 바로 쓰는 국내외 기관과 도구.</p>
+      <div class="hero-links"><a class="btn primary" href="#/terms">📖 표준 간호용어 12종 정리 보기</a></div></header>
     <div class="res-grid">${NT.RESOURCES.map((g) => `
       <section class="res"><h2>${esc(g.group)}</h2><ul>${g.items.map((i) => `
         <li><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.name)} ↗</a><small>${esc(i.note)}</small></li>`).join("")}</ul></section>`).join("")}

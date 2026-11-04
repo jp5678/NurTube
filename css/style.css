@@ -421,3 +421,41 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
   body.nav-collapsed .nav a.active { box-shadow: none; }
 }
 .badge-inline.warn { background: var(--ng-bg); color: var(--ng); }
+
+/* ── 표준 간호용어 페이지 */
+.term-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; max-width: 1100px; }
+.term-types div { padding: 14px 16px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line); }
+.term-types b { display: block; margin-bottom: 2px; }
+.term-types span { font-size: 13px; color: var(--muted); }
+.term-table-wrap { overflow-x: auto; max-width: 1100px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+.term-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+.term-table th, .term-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.term-table th { background: var(--surface-2); font-size: 13px; color: var(--muted); }
+.term-table tr:last-child td { border-bottom: 0; }
+.term-table td a { display: grid; }
+.term-table td a:hover b { color: var(--accent); }
+.term-table td small { color: var(--muted); font-size: 12px; }
+.term-table td.dot { text-align: center; color: var(--accent); font-size: 16px; }
+.term-table td.muted { font-size: 12px; }
+.term-type { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.term-type.dataset { background: color-mix(in srgb, var(--tier-mid) 14%, var(--surface)); color: var(--warm); }
+.term-type.interface { background: var(--tint); color: var(--accent); }
+.term-type.reference { background: var(--ok-bg); color: var(--ok); }
+.term-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; max-width: 1100px; }
+.term-card { padding: 18px 20px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); scroll-margin-top: calc(var(--top-h) + 12px); }
+.term-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.term-head h3 { margin: 0; font-size: 17px; }
+.term-head small { display: block; font-size: 13px; font-weight: 500; color: var(--muted); }
+.term-card > p { margin: 10px 0; }
+.term-card dl { display: grid; grid-template-columns: 44px 1fr; gap: 6px 10px; margin: 0; font-size: 14px; }
+.term-card dt { font-weight: 700; color: var(--accent); }
+.term-card dd { margin: 0; line-height: 1.65; }
+.term-foot { margin: 12px 0 0; font-size: 13px; }
+.term-foot a { color: var(--accent); font-weight: 600; }
+.term-nnn { margin-top: 20px; max-width: 1100px; }
+.nnn-flow { list-style: none; padding: 0; margin: 0 0 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; counter-reset: nnn; }
+.nnn-flow li { position: relative; padding: 14px 16px; border-radius: var(--radius-sm); background: var(--tint); }
+.nnn-flow b { display: block; color: var(--accent); margin-bottom: 4px; }
+.nnn-flow span { font-size: 14px; }
+.wk-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.term-table th { white-space: nowrap; }
