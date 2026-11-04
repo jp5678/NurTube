@@ -69,12 +69,14 @@ code { background: var(--surface-2); padding: 1px 6px; border-radius: 6px; font-
 .icon-btn:hover { background: var(--surface-2); }
 
 /* ── 사이드 내비 */
-.nav { position: fixed; top: var(--top-h); bottom: 0; left: 0; width: var(--nav-w); padding: 16px 14px; overflow-y: auto; z-index: 20; }
-.nav a { display: flex; align-items: center; gap: 12px; padding: 9px 14px; margin-bottom: 2px; border-radius: 999px; font-size: 14px; color: var(--muted); font-weight: 500; }
-.nav a i { font-style: normal; width: 20px; text-align: center; }
-.nav a:hover { background: var(--surface); color: var(--text); }
+.nav { position: fixed; top: var(--top-h); bottom: 0; left: 0; width: var(--nav-w); padding: 12px 12px 20px; overflow-y: auto; z-index: 20; }
+.nav a { display: flex; align-items: center; gap: 12px; padding: 7px 14px; border-radius: 999px; font-size: 15px; line-height: 1.35; color: var(--text); font-weight: 500; }
+.nav .ico { flex: none; width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; color: var(--muted); }
+.nav a:hover { background: var(--surface); }
+.nav a:hover .ico { color: var(--accent); }
 .nav a.active { background: var(--accent); color: var(--accent-ink); font-weight: 700; box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 28%, transparent); }
-.nav hr { border: 0; border-top: 1px solid var(--line); margin: 12px 8px; }
+.nav a.active .ico { color: var(--accent-ink); }
+.nav hr { border: 0; border-top: 1px solid var(--line); margin: 7px 10px; }
 .scrim { display: none; }
 
 main { margin: var(--top-h) 0 0 var(--nav-w); padding: 28px 32px 72px; max-width: 1600px; outline: none; }
@@ -393,3 +395,6 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 .ai-banner.warn { background: color-mix(in srgb, var(--tier-mid) 14%, var(--surface)); }
 .ai-banner p { margin: 6px 0 0; }
 @media (max-width: 560px) { .cand { grid-template-columns: 1fr; } }
+.prof-label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.prof-label input { height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font-size: 15px; }
+.prof-msg { min-height: 1.4em; margin: 8px 0; }

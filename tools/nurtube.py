@@ -22,7 +22,8 @@ MENU = """
   4) 내 컴퓨터에서 사이트 미리보기
   5) AI 설정 (Claude API 키 등록·연결 확인)
   6) GitHub 처음 연결 (최초 1회)
-  7) 끝내기
+  7) 교수자 모드 비밀번호 설정·변경
+  8) 끝내기
 ──────────────────────────────────────────"""
 
 
@@ -84,6 +85,12 @@ def do_ai_setup() -> None:
     ai_draft.set_key()
 
 
+def do_password() -> None:
+    import prof_password
+    if prof_password.main():
+        offer_push("chore: 교수자 모드 비밀번호 변경")
+
+
 def do_preview() -> None:
     url = f"http://localhost:{PREVIEW_PORT}/"
     print(f"미리보기: {url}  (창을 닫거나 Ctrl+C로 종료)")
@@ -99,7 +106,7 @@ def do_setup() -> None:
         publish.setup(name)
 
 
-ACTIONS = {"1": do_update, "2": do_discover, "3": do_refresh, "4": do_preview, "5": do_ai_setup, "6": do_setup}
+ACTIONS = {"1": do_update, "2": do_discover, "3": do_refresh, "4": do_preview, "5": do_ai_setup, "6": do_setup, "7": do_password}
 
 
 def main() -> None:
@@ -107,11 +114,11 @@ def main() -> None:
     while True:
         print(MENU)
         choice = input("번호를 입력하세요: ").strip()
-        if choice in ("7", "q", ""):
+        if choice in ("8", "q", ""):
             break
         action = ACTIONS.get(choice)
         if not action:
-            print("1~7 중에서 골라 주세요.")
+            print("1~8 중에서 골라 주세요.")
             continue
         try:
             action()

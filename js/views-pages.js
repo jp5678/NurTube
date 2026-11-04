@@ -220,7 +220,8 @@ NT.pages = (() => {
     <h2 class="settings-h">교수자</h2>
     <div class="settings">
       <label class="setting"><div><b>교수자 모드</b>
-        <p>켜면 영상 페이지에 '검수 완료' 체크가 나타납니다. 요약·추천 이유·답변 가이드를 직접 확인한 영상에 표시하세요.</p></div>
+        <p>켜면 메뉴에 '영상 관리'가, 영상 페이지에 '검수 완료' 체크가 나타납니다.
+          ${NT.profAuth.required ? "🔒 켤 때 교수자 비밀번호를 묻습니다." : "⚠ 아직 비밀번호가 없습니다. NurTube 업데이트.command의 7번에서 정해 주세요."}</p></div>
         <input type="checkbox" data-setting="prof" ${check("prof")} /></label>
       ${state.settings.prof ? `<div class="setting"><div><b>검수 목록 내보내기 (${localReviews}편 표시함)</b>
         <p>받은 <code>reviewed.json</code>을 <code>tools/</code> 폴더에 넣고 <code>python3 tools/build_data.py</code>를 실행하면
@@ -268,6 +269,16 @@ NT.pages = (() => {
       <p class="muted">저장되는 정보(좋아요·기록·노트)는 학생 각자의 브라우저에만 남으며 서버로 전송되지 않습니다.</p>
     </article>`;
 
+  const profLogin = () => `
+    <div class="modal" role="dialog" aria-modal="true" aria-label="교수자 비밀번호"><div class="modal-box">
+      <h2>🔒 교수자 모드</h2>
+      <form class="prof-form">
+        <label class="prof-label">교수자 비밀번호<input type="password" id="prof-pw" autocomplete="current-password" required /></label>
+        <p class="prof-msg muted" id="prof-msg"></p>
+        <div class="hero-links"><button class="btn primary" type="submit">확인</button>
+          <button class="btn" type="button" data-act="close-modal">취소</button></div>
+      </form></div></div>`;
+
   const help = () => `
     <div class="modal" role="dialog" aria-modal="true" aria-label="단축키"><div class="modal-box">
       <h2>키보드 단축키</h2>
@@ -278,5 +289,5 @@ NT.pages = (() => {
         <dt><kbd>g</kbd> <kbd>h</kbd></dt><dd>홈으로</dd><dt><kbd>?</kbd></dt><dd>이 도움말</dd><dt><kbd>Esc</kbd></dt><dd>닫기</dd></dl>
       <button class="btn" data-act="close-modal">닫기</button></div></div>`;
 
-  return { watch, stampList, trends, resources, notes, noteEntries, exportNotes, settings, about, help };
+  return { profLogin, watch, stampList, trends, resources, notes, noteEntries, exportNotes, settings, about, help };
 })();

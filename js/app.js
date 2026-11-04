@@ -148,6 +148,34 @@
 
   const closeModal = () => document.querySelector(".modal")?.remove();
 
+  const openProfLogin = () => {
+    closeModal();
+    document.body.insertAdjacentHTML("beforeend", P.profLogin());
+    document.getElementById("prof-pw").focus();
+  };
+
+  document.addEventListener("submit", async (e) => {
+    if (!e.target.matches(".prof-form")) return;
+    e.preventDefault();
+    const input = document.getElementById("prof-pw");
+    const msg = document.getElementById("prof-msg");
+    msg.textContent = "확인 중…";
+    const result = await NT.profAuth.verify(input.value);
+    if (result === "ok") {
+      store.setSetting("prof", true);
+      store.setSetting("profAuth", NT.profAuth.stamp());
+      location.reload();
+      return;
+    }
+    input.value = "";
+    input.focus();
+    msg.textContent = {
+      wrong: "비밀번호가 맞지 않습니다.",
+      locked: "여러 번 틀려 30초 동안 잠겼습니다. 잠시 뒤 다시 시도하세요.",
+      unsupported: "이 화면에서는 확인할 수 없습니다. https 주소나 미리보기(localhost)로 열어 주세요.",
+    }[result];
+  });
+
   // 학습노트에 현재 재생 위치를 [m:ss] 형식으로 넣는다
   const insertStamp = () => {
     const box = document.getElementById("note");
@@ -195,6 +223,17 @@
   document.addEventListener("change", (e) => {
     const { filter, setting } = e.target.dataset;
     if (filter) { filters = Object.freeze({ ...filters, [filter]: e.target.value }); render(); }
+    if (setting === "prof") {
+      if (e.target.checked && NT.profAuth.required) {
+        e.target.checked = false; // 비밀번호 확인 후에 켠다
+        openProfLogin();
+        return;
+      }
+      store.setSetting("prof", e.target.checked);
+      store.setSetting("profAuth", e.target.checked ? NT.profAuth.stamp() : "");
+      location.reload();
+      return;
+    }
     if (setting) {
       store.setSetting(setting, e.target.type === "checkbox" ? e.target.checked : e.target.value);
       applyTheme();
