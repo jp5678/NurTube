@@ -497,3 +497,7 @@ a.ts { color: var(--accent); font-weight: 700; text-decoration: underline; text-
 .note-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
 .btn.danger { color: var(--ng); border-color: color-mix(in srgb, var(--ng) 35%, var(--line)); }
 .btn.danger:hover { background: var(--ng-bg); }
+.site-footer { margin: 0 0 0 var(--nav-w); padding: 18px 32px 28px; max-width: 1600px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; line-height: 1.6; }
+.site-footer p { margin: 0; }
+@media (max-width: 860px) { .site-footer { margin-left: 0; padding: 16px 16px 24px; } }
+@media print { .site-footer { margin: 12mm 0 0 !important; padding: 8px 0 0; } }
